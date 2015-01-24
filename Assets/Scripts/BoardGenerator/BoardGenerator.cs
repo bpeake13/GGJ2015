@@ -8,7 +8,7 @@ public static class BoardGenerator {
     const float tileSpacing = 0.15f;            //How far apart are the tiles.
 
     //Variables for procedurally placing walls
-    const int chanceWallPerTile = 10; //1 in 10 chance
+    const int chanceWallPerTile = 20; //1 in x chance
 
     /// <summary>
     /// Procedurally assign pieces in the piece structure.
