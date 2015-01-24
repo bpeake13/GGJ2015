@@ -31,7 +31,7 @@ public interface IAction
 
     EActionDirection GetDirection();
 
-    void ReSolve(IReaction reaction);
+    void ReSolve(ActionStatus status);
 }
 
 public class NoneAction : IAction
@@ -47,7 +47,7 @@ public class NoneAction : IAction
         return EActionDirection.None;
     }
 
-    public void ReSolve(IReaction reaction)
+    public void ReSolve(ActionStatus status)
     {
         
     }
