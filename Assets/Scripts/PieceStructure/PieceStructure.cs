@@ -41,7 +41,7 @@ public class PieceStructure {
                                                         Quaternion.identity) as GameObject;
 
         //Create the piece to place on the tile
-        IPiece newPiece = PieceFactory.MakePiece(type, pieceObject);
+        IPiece newPiece = PieceObjectConverter.MakePiece(type, pieceObject);
         pieces[x, y] = newPiece;
     }
 

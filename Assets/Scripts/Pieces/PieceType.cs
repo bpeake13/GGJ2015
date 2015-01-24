@@ -5,6 +5,5 @@ public enum PieceType
 {
     player,
     wall,
-    spikes,
     health_potion
 };
