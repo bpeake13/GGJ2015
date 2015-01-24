@@ -7,10 +7,10 @@ using System.Collections;
 /// </summary>
 public class PlayerTurnSkippedState : GameState
 {
-    public PlayerTurnSkippedState(PlayerController player, ActionStatus action)
+    public PlayerTurnSkippedState(ActionStatus action)
     {
-        this.player = player;
-        action.ActionType = EActionType.None;
+        this.player = action.OwnerPlayer;
+        action.ActionType = new NoneAction();
     }
 
     public override void Enter()

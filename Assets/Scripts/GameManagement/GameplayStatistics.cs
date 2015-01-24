@@ -20,6 +20,12 @@ public class GameplayStatistics: MonoBehaviour
         get { return playerTable.Count; }
     }
 
+    public float MaxReactionTime
+    {
+        get { return maxReactionTime; }
+        set { maxReactionTime = value; }
+    }
+
     /// <summary>
     /// Registers a player with the game
     /// </summary>
@@ -135,6 +141,8 @@ public class GameplayStatistics: MonoBehaviour
     }
 
     private GameState state;
+
+    private float maxReactionTime = 1f;
 
     private SortedDictionary<int, PlayerController> playerTable = new SortedDictionary<int, PlayerController>();
 

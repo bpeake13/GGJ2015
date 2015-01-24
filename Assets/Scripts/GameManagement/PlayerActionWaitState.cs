@@ -3,9 +3,9 @@ using System.Collections;
 
 public class PlayerActionWaitState : GameState
 {
-    public PlayerActionWaitState(PlayerController player, ActionStatus action)
+    public PlayerActionWaitState(ActionStatus action)
     {
-        this.player = player;
+        this.player = action.OwnerPlayer;
         this.action = action;
     }
 

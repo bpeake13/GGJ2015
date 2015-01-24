@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
     /// <returns>True if the player has taken there action, false otherwise</returns>
     public virtual bool TakeAction(ActionStatus action)
     {
-        action.ActionType = EActionType.None;
+        action.ActionType = new NoneAction();
         return true;
     }
 
@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour
     /// <returns>True when the player has finished the reaction.</returns>
     public virtual bool TakeReAction(ReActionStatus action)
     {
-        action.ReactionType = EReActionType.None;
+        action.ReactionType = new NoneReaction();
         return true;
     }
 

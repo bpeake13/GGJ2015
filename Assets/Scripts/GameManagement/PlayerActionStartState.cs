@@ -13,7 +13,7 @@ public class PlayerActionStartState : GameState
     {
         if(!player.HasAction)
         {
-            SwitchState(new PlayerTurnSkippedState(player, action));
+            SwitchState(new PlayerTurnSkippedState(action));
             return;
         }
     }
@@ -26,6 +26,11 @@ public class PlayerActionStartState : GameState
     public override void Exit()
     {
         
+    }
+
+    public override void Signal(int arg)
+    {
+        SwitchState(new PlayerActionWaitState(action));
     }
 
     private PlayerController player;
