@@ -75,6 +75,17 @@ public class PieceStructure {
     }
 
     /// <summary>
+    /// Check if the space specified has any pieces on it.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public bool isSpaceEmpty(int x, int y)
+    {
+        return (pieces[x, y] == null) && (isSpaceOnBoard(x, y));
+    }
+
+    /// <summary>
     /// Getter for board width
     /// </summary>
     /// <returns></returns>

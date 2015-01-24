@@ -70,8 +70,14 @@ public class ItemSpawner {
             if (randomNumber <= itemSpawnChance[i])
             {
                 //Spawn item at a random position
-                int x = Random.Range(0, pieces.GetBoardWidth());
-                int y = Random.Range(0, pieces.GetBoardHeight());
+                int x, y;
+                do
+                {
+                    x = Random.Range(0, pieces.GetBoardWidth());
+                    y = Random.Range(0, pieces.GetBoardHeight());
+                } while (pieces.isSpaceEmpty(x, y));//Keep looping until we find a valid space to place the item.
+
+                //Actually create the item.
                 pieces.CreatePiece(x, y, items[i]);
             }
         }

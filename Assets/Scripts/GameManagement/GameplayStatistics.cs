@@ -136,7 +136,7 @@ public class GameplayStatistics: MonoBehaviour
 
     private GameState state;
 
-    private SortedDictionary<int, PlayerController> playerTable = new SortedDictionary<int, PlayerController>()
+    private SortedDictionary<int, PlayerController> playerTable = new SortedDictionary<int, PlayerController>();
 
     private static GameplayStatistics instance;
 }

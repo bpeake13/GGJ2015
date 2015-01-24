@@ -3,6 +3,15 @@ using System.Collections;
 
 public class GameController : MonoBehaviour {
 
+    //Singlton setup
+    public static GameController Instance
+    {
+        get { return instance; }
+    }
+    private static GameController instance;
+
+
+
     //Public variables to change in the editor.
     public int BOARD_WIDTH;
     public int BOARD_HEIGHT;
@@ -15,6 +24,10 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        //Set the singleton
+        instance = this;
+
         //Set up the piece structure/board
         pieces = new PieceStructure(gameObject, BOARD_WIDTH, BOARD_HEIGHT);
 
@@ -36,5 +49,14 @@ public class GameController : MonoBehaviour {
     public PieceStructure GetPieceStructure()
     {
         return pieces;
+    }
+
+    /// <summary>
+    /// Getter for the item spawner
+    /// </summary>
+    /// <returns></returns>
+    public ItemSpawner GetItemSpawner()
+    {
+        return itemSpawner;
     }
 }
