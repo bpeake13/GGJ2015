@@ -54,8 +54,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public bool HasAction
     {
-        get { return !bSkipAction; }
-        set { bSkipAction = !value; }
+        get { return playerPiece.HasAction(); }
+        set { playerPiece.SetHasAction(!value); }
     }
 
     /// <summary>
@@ -63,8 +63,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public bool HasReAction
     {
-        get { return !bSkipReAction; }
-        set { bSkipAction = !value; }
+        get { return playerPiece.HasReaction(); }
+        set { playerPiece.SetHasReaction(!value); }
     }
 
     /// <summary>
@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
         GameObject gameController = GameObject.Find("GameController");
         PieceStructure pieces = gameController.GetComponent<GameController>().GetPieceStructure();
 
-        BoardGenerator.SpawnPlayer(pieces, GameplayStatistics.Instance.PlayerCount);
+        playerPiece = BoardGenerator.SpawnPlayer(pieces, GameplayStatistics.Instance.PlayerCount);
     }
 
     /// <summary>
@@ -125,8 +125,17 @@ public class PlayerController : MonoBehaviour
         return sb.ToString();
     }
 
+    /// <summary>
+    /// Getter for the player piece
+    /// </summary>
+    /// <returns></returns>
+    public Player GetPlayerPiece()
+    {
+        return playerPiece;
+    }
+
     private int index = -1;
 
-    private bool bSkipAction;
-    private bool bSkipReAction;
+    //Hold a reference to the player piece
+    Player playerPiece;
 }

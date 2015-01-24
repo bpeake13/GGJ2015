@@ -10,6 +10,14 @@ public class Inventory {
     List<IItem> items;
 
     /// <summary>
+    /// Constructor
+    /// </summary>
+    public Inventory()
+    {
+        items = new List<IItem>();
+    }
+
+    /// <summary>
     /// When an item is picked up, add it to the inventory
     /// </summary>
     /// <param name="newItem"></param>

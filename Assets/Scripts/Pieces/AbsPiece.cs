@@ -9,6 +9,9 @@ public abstract class AbsPiece : IPiece {
     //Hold reference to the game object
     GameObject visual;
 
+    //Hold a reference to the position
+    Vector2 position;
+
     /// <summary>
     /// Constructor
     /// </summary>
@@ -34,5 +37,23 @@ public abstract class AbsPiece : IPiece {
     public GameObject GetVisual()
     {
         return visual;
+    }
+
+    /// <summary>
+    /// Getter for position
+    /// </summary>
+    /// <returns></returns>
+    public Vector2 GetPosition()
+    {
+        return position;
+    }
+
+    /// <summary>
+    /// Setter for the position to keep the piece updated.
+    /// </summary>
+    /// <param name="newPosition"></param>
+    public void SetPosition(Vector2 newPosition)
+    {
+        position = newPosition;
     }
 }

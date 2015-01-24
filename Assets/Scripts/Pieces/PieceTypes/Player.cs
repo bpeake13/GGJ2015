@@ -7,6 +7,8 @@ public class Player : AbsPiece {
     const int MAX_HEALTH = 5;
     int currentHealth;
     Inventory inventory;
+    bool hasAction = true;
+    bool hasReaction = true;
 
     public Player(GameObject visual): base(visual)
     {
@@ -25,12 +27,66 @@ public class Player : AbsPiece {
     }
 
     /// <summary>
+    /// Deal some damage to the player.
+    /// </summary>
+    /// <param name="amount"></param>
+    public void Damage(int amount)
+    {
+        currentHealth -= amount;
+    }
+
+    /// <summary>
     /// Getter for health.
     /// </summary>
     /// <returns></returns>
     public int GetCurrentHealth()
     {
         return currentHealth;
+    }
+
+    /// <summary>
+    /// Determine if this player is dead or not.
+    /// </summary>
+    /// <returns></returns>
+    public bool isDead()
+    {
+        return currentHealth > 0;
+    }
+
+    /// <summary>
+    /// Getter
+    /// </summary>
+    /// <returns></returns>
+    public bool HasAction()
+    {
+        return hasAction;
+    }
+
+    /// <summary>
+    /// Getter
+    /// </summary>
+    /// <returns></returns>
+    public bool HasReaction()
+    {
+        return hasReaction;
+    }
+
+    /// <summary>
+    /// Setter
+    /// </summary>
+    /// <param name="var"></param>
+    public void SetHasAction(bool var)
+    {
+        hasAction = var;
+    }
+
+    /// <summary>
+    /// Setter
+    /// </summary>
+    /// <param name="var"></param>
+    public void SetHasReaction(bool var)
+    {
+        hasReaction = var;
     }
 
     /// <summary>

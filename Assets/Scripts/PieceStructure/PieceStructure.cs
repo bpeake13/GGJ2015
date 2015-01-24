@@ -33,7 +33,7 @@ public class PieceStructure {
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <param name="type"></param>
-    public void CreatePiece(int x, int y, PieceType type)
+    public IPiece CreatePiece(int x, int y, PieceType type)
     {
         //Create the visual for the piece
         GameObject pieceObject = GameObject.Instantiate(gameController.GetComponent<PieceObjectConverter>().GetObjectByType(type),
@@ -43,6 +43,8 @@ public class PieceStructure {
         //Create the piece to place on the tile
         IPiece newPiece = PieceObjectConverter.MakePiece(type, pieceObject);
         pieces[x, y] = newPiece;
+        pieces[x, y].SetPosition(new Vector2(x, y));
+        return newPiece;
     }
 
     /// <summary>
@@ -74,9 +76,26 @@ public class PieceStructure {
 
         //Move the piece to the space.
         pieces[x2, y2] = pieces[x1, y1];
+        pieces[x2, y2].SetPosition(new Vector2(x2, y2));
         pieces[x2, y2].GetVisual().transform.position = BoardGenerator.ConvertBoardSpaceToWorldSpace(x2, y2);
 
         
+    }
+
+    /// <summary>
+    /// Switch the places of two pieces on the board.
+    /// </summary>
+    public void SwapPiecePositions(int x1, int y1, int x2, int y2)
+    {
+        IPiece temp = pieces[x2, y2];
+
+        pieces[x2, y2] = pieces[x1, y1];
+        pieces[x2, y2].SetPosition(new Vector2(x2, y2));
+        pieces[x2, y2].GetVisual().transform.position = BoardGenerator.ConvertBoardSpaceToWorldSpace(x2, y2);
+
+        pieces[x1, y1] = temp;
+        pieces[x1, y1].SetPosition(new Vector2(x1, y1));
+        pieces[x1, y1].GetVisual().transform.position = BoardGenerator.ConvertBoardSpaceToWorldSpace(x1, y1);
     }
 
     /// <summary>
@@ -98,6 +117,17 @@ public class PieceStructure {
     public bool isSpaceEmpty(int x, int y)
     {
         return (pieces[x, y] == null) && (isSpaceOnBoard(x, y));
+    }
+
+    /// <summary>
+    /// Check if the space can be moved onto by a player
+    /// </summary>
+    /// <returns></returns>
+    public bool isSpaceMovable(int x, int y)
+    {
+        return (isSpaceOnBoard(x, y) && 
+                (pieces[x, y] == null || 
+                    (pieces[x, y].GetPieceType() != PieceType.player && pieces[x, y].GetPieceType() != PieceType.wall)));
     }
 
     /// <summary>

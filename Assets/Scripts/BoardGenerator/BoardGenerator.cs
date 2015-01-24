@@ -70,12 +70,11 @@ public static class BoardGenerator {
     /// Create the players we need to play the game.
     /// </summary>
     /// <param name="pieces"></param>
-    public static void SpawnPlayer(PieceStructure pieces, int numPlayers)
+    public static Player SpawnPlayer(PieceStructure pieces, int numPlayers)
     {
         //Spawn the player based on its spawn position
-        Vector2 position = playerSpawnLocations[numPlayers][spawnedPlayerIndex];
-        pieces.CreatePiece((int)position.x, (int)position.y, PieceType.player);
-        spawnedPlayerIndex++;//Now that we spawned a new player, increase the index.
+        Vector2 position = playerSpawnLocations[numPlayers][spawnedPlayerIndex++];
+        return (Player)pieces.CreatePiece((int)position.x, (int)position.y, PieceType.player);
     }
 
     /// <summary>

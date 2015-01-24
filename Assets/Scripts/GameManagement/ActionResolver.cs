@@ -17,9 +17,10 @@ public class ActionResolver : GameState
     public override void Update()
     {
         //Check the attempted moves in the ActionStatus to see the resulting movement.
-
-        //Update the Piece Structure based on the results of the ActionStatus
-        PieceStructure pieces = GameController.Instance.GetPieceStructure();
+        foreach (ReActionStatus reaction in action.GetAllReactions())
+        {
+            action.ActionType.ReSolve(reaction, action);
+        }
 
         //Go to the action state of the next player and let them have their turn.
         PlayerActionStartState next = new PlayerActionStartState(GameplayStatistics.Instance.GetNextPlayer(player));

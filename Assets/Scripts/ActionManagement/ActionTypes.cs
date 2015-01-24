@@ -1,4 +1,5 @@
-﻿public enum EActionType
+﻿
+public enum EActionType
 {
     None,
     Move,
@@ -31,7 +32,7 @@ public interface IAction
 
     EActionDirection GetDirection();
 
-    void ReSolve(ActionStatus status);
+    void ReSolve(ReActionStatus reaction, ActionStatus status);
 }
 
 public class NoneAction : IAction
@@ -47,7 +48,7 @@ public class NoneAction : IAction
         return EActionDirection.None;
     }
 
-    public void ReSolve(ActionStatus status)
+    public void ReSolve(ReActionStatus reaction, ActionStatus status)
     {
         
     }

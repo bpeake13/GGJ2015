@@ -14,4 +14,16 @@ public interface IPiece {
     /// </summary>
     /// <returns></returns>
     GameObject GetVisual();
+
+    /// <summary>
+    /// Getter for position
+    /// </summary>
+    /// <returns></returns>
+    Vector2 GetPosition();
+
+    /// <summary>
+    /// Setter for the position to keep the piece updated.
+    /// </summary>
+    /// <param name="newPosition"></param>
+    void SetPosition(Vector2 newPosition);
 }
