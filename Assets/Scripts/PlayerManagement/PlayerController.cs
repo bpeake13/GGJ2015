@@ -70,7 +70,12 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public virtual void Spawn()
     {
+        //Spawn the players into the piece structure.
+        GameObject gameController = GameObject.Find("GameController");
+        PieceStructure pieces = gameController.GetComponent<GameController>().GetPieceStructure();
 
+        int numPlayers = 2;
+        BoardGenerator.SpawnPlayer(pieces, numPlayers);
     }
 
     /// <summary>

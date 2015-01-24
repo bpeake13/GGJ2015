@@ -13,7 +13,7 @@ public class Inventory {
     /// When an item is picked up, add it to the inventory
     /// </summary>
     /// <param name="newItem"></param>
-    public void PickUpItem(IItem newItem)
+    public void AddItem(IItem newItem)
     {
         items.Add(newItem);
 
@@ -29,10 +29,16 @@ public class Inventory {
     /// </summary>
     /// <param name="index"></param>
     /// <returns></returns>
-    public IItem GetItemByIndex(int index)
+    public IItem UseItemAtIndex(int index)
     {
+        //If we don't have the specified item, return nothing
+        if(index > items.Count)
+        {
+            return null;
+        }
+
         IItem item = items[index];
-        items.RemoveAt(0);
+        items.RemoveAt(index);
         return item;
     }
 }

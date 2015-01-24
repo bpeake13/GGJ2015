@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public static class BoardGenerator {
 
@@ -9,6 +9,14 @@ public static class BoardGenerator {
 
     //Variables for procedurally placing walls
     const int chanceWallPerTile = 20; //1 in x chance
+
+    //Spawn locations for the players
+    //The first index is the number of players, the second index is the 
+    static Dictionary<int, Vector2[]> playerSpawnLocations = new Dictionary<int, Vector2[]>
+    {
+        {2, new Vector2[]{new Vector2(0, 0), new Vector2(1, 1)}}
+    };
+    static int spawnedPlayerIndex = 0;
 
     /// <summary>
     /// Procedurally assign pieces in the piece structure.
@@ -27,8 +35,12 @@ public static class BoardGenerator {
         }
 
         //Use an algorithm to spawn pieces on the board.
-        SpawnPlayers(pieces);
         SpawnWallsOnBoard(pieces);
+    }
+
+    public static void Reset()
+    {
+
     }
 
     /// <summary>
@@ -58,11 +70,12 @@ public static class BoardGenerator {
     /// Create the players we need to play the game.
     /// </summary>
     /// <param name="pieces"></param>
-    private static void SpawnPlayers(PieceStructure pieces)
+    public static void SpawnPlayer(PieceStructure pieces, int numPlayers)
     {
-        //Spawn 2 players
-        pieces.CreatePiece(0, 0, PieceType.player);
-        pieces.CreatePiece(1, 1, PieceType.player);
+        //Spawn the player based on its spawn position
+        Vector2 position = playerSpawnLocations[numPlayers][spawnedPlayerIndex];
+        pieces.CreatePiece((int)position.x, (int)position.y, PieceType.player);
+        spawnedPlayerIndex++;//Now that we spawned a new player, increase the index.
     }
 
     /// <summary>
