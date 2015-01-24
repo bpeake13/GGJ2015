@@ -133,8 +133,8 @@ public class GameplayStatistics: MonoBehaviour
         {
             state.Exit();
             next.Enter();
-            next = state.GetNext();
             state = next;
+            next = state.GetNext();
         }
 
         state.Update();

@@ -16,6 +16,7 @@ public class PlayerActionStartState : GameState
             SwitchState(new PlayerTurnSkippedState(action));
             return;
         }
+        SwitchState(new PlayerActionWaitState(action));
     }
 
     public override void Update()
