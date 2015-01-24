@@ -9,4 +9,9 @@ public interface IPiece {
     /// <returns></returns>
     PieceType GetPieceType();
 
+    /// <summary>
+    /// Return the object representing this piece.
+    /// </summary>
+    /// <returns></returns>
+    GameObject GetVisual();
 }

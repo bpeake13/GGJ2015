@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         //Set up the piece structure/board
-        pieces = new PieceStructure(BOARD_WIDTH, BOARD_HEIGHT);
+        pieces = new PieceStructure(gameObject, BOARD_WIDTH, BOARD_HEIGHT);
 
         //Set up the Board Generator to set up the playing field.
         BoardGenerator.Generate(pieces);
