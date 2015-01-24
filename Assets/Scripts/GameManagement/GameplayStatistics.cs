@@ -91,7 +91,7 @@ public class GameplayStatistics: MonoBehaviour
         return playerTable.Values.GetEnumerator().Current;
     }
 
-    public IEnumerator<PlayerController> IteratePlayers()
+    public IEnumerable<PlayerController> IteratePlayers()
     {
         foreach (KeyValuePair<int, PlayerController> playerEntry in playerTable)
         {
@@ -121,16 +121,17 @@ public class GameplayStatistics: MonoBehaviour
 
     void Update()
     {
-        state.Update();
-
         GameState next = state.GetNext();
 
-        while(next != null)
+        while (next != null)
         {
             state.Exit();
             next.Enter();
             next = state.GetNext();
+            state = next;
         }
+
+        state.Update();
     }
 
     private GameState state;
