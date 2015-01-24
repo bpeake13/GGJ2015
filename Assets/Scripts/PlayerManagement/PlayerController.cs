@@ -99,6 +99,9 @@ public class PlayerController : MonoBehaviour
         button1Name = GetButtonLongName("Button1");
         button2Name = GetButtonLongName("Button2");
         button3Name = GetButtonLongName("Button3");
+
+        horizontalAxis = GetButtonLongName("Horizontal");
+        verticalAxis = GetButtonLongName("Vertical");
     }
 
     /// <summary>
@@ -115,24 +118,34 @@ public class PlayerController : MonoBehaviour
     /// <returns>True if the player has taken there action, false otherwise</returns>
     public virtual bool TakeAction(ActionStatus action)
     {
+        EActionDirection direction = GetAxisDirection();
+
         if(Input.GetButtonDown(button0Name))
         {
-
+            action.ActionType = new MoveAction(direction);
+            action.Direction = direction;
+            return true;
         }
         else if(Input.GetButtonDown(button1Name))
         {
-
+            action.ActionType = new StrongAction(direction);
+            action.Direction = direction;
+            return true;
         }
         else if(Input.GetButtonDown(button2Name))
         {
-
+            action.ActionType = new WideAction(direction);
+            action.Direction = direction;
+            return true;
         }
         else if(Input.GetButtonDown(button3Name))
         {
-
+            action.ActionType = new LungeAction(direction);
+            action.Direction = direction;
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     /// <summary>
@@ -180,6 +193,42 @@ public class PlayerController : MonoBehaviour
         return playerPiece;
     }
 
+    private EActionDirection GetAxisDirection()
+    {
+        Vector2 axis = new Vector2();
+        axis.x = Input.GetAxisRaw(horizontalAxis);
+        axis.y = Input.GetAxisRaw(verticalAxis);
+
+        if (Mathf.Abs(axis.x) > Mathf.Abs(axis.y))
+        {
+            axis.x = Mathf.Sign(axis.x);
+            axis.y = 0;
+        }
+        else
+        {
+            axis.y = Mathf.Sign(axis.y);
+            axis.x = 0;
+        }
+
+        float xDot = Vector2.Dot(axis, Vector2.right);
+        float yDot = Vector2.Dot(axis, Vector2.up);
+
+        if(Mathf.Approximately(xDot, 1f))
+        {
+            return EActionDirection.Right;
+        }
+        else if(Mathf.Approximately(xDot, -1f))
+        {
+            return EActionDirection.Left;
+        }
+        else if(Mathf.Approximately(yDot, 1f))
+        {
+            return EActionDirection.Up;
+        }
+        else
+            return EActionDirection.Down;
+    }
+
     private int index = -1;
 
 
@@ -189,6 +238,8 @@ public class PlayerController : MonoBehaviour
     private bool bSkipAction;
     private bool bSkipReAction;
 
+    private string horizontalAxis;
+    private string verticalAxis;
     private string button0Name;
     private string button1Name;
     private string button2Name;
