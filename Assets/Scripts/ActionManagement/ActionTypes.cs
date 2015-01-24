@@ -29,6 +29,8 @@ public interface IAction
 {
     EActionType GetActionType();
 
+    EActionDirection GetDirection();
+
     void ReSolve(IReaction reaction);
 }
 
@@ -40,6 +42,11 @@ public class NoneAction : IAction
         return EActionType.None;
     }
 
+    public EActionDirection GetDirection()
+    {
+        return EActionDirection.None;
+    }
+
     public void ReSolve(IReaction reaction)
     {
         
@@ -49,6 +56,7 @@ public class NoneAction : IAction
 public interface IReaction
 {
     EReActionType GetReactionType();
+    EActionDirection GetDirection();
 }
 
 public class NoneReaction : IReaction
@@ -56,5 +64,10 @@ public class NoneReaction : IReaction
     public EReActionType GetReactionType()
     {
         return EReActionType.None;
+    }
+
+    public EActionDirection GetDirection()
+    {
+        return EActionDirection.None;
     }
 }
