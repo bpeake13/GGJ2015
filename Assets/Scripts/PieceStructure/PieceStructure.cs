@@ -12,9 +12,6 @@ public class PieceStructure {
     //Board size
     int boardWidth, boardHeight;
 
-    //Hold special references for the players so there are a set number of them;
-    List<Player> players;
-
     /// <summary>
     /// Constructor
     /// </summary>
@@ -28,9 +25,6 @@ public class PieceStructure {
 
         //Initialize the array
         pieces = new IPiece[boardWidth, boardHeight];
-
-        //Initialize the player array;
-        players = new List<Player>();
     }
 
     /// <summary>
@@ -49,15 +43,6 @@ public class PieceStructure {
         //Create the piece to place on the tile
         IPiece newPiece = PieceFactory.MakePiece(type, pieceObject);
         pieces[x, y] = newPiece;
-
-        
-
-
-        //Keep track of all players that are created
-        if(type == PieceType.player)
-        {
-            players.Add((Player)newPiece);
-        }
     }
 
     /// <summary>
@@ -105,20 +90,5 @@ public class PieceStructure {
     public int GetBoardHeight()
     {
         return boardHeight;
-    }
-
-    /// <summary>
-    /// Start counting from 1 (player 1 and player 2, not player 0)
-    /// </summary>
-    /// <param name="playerNumber"></param>
-    /// <returns></returns>
-    public Player GetPlayer(int playerNumber)
-    {
-        //Just in case someone searches for "Player number 0", just assume they meant player 1.
-        if(playerNumber == 0)
-        {
-            playerNumber++;
-        }
-        return players[playerNumber];
     }
 }
