@@ -32,4 +32,13 @@ public class Player : AbsPiece {
     {
         return currentHealth;
     }
+
+    /// <summary>
+    /// Getter
+    /// </summary>
+    /// <returns></returns>
+    public Inventory GetInventory()
+    {
+        return inventory;
+    }
 }

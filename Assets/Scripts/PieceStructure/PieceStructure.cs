@@ -60,8 +60,23 @@ public class PieceStructure {
     /// </summary>
     public void MovePiece(int x1, int y1, int x2, int y2)
     {
+        //Handle picking up the items when the player moves through/on them.
+        //Should sweep through positions between the old space and new spaces, but I'm lazy
+        if(pieces[x2, y2] != null)
+        {
+            //If there is an item there
+            if(pieces[x2, y2] is IItem)
+            {
+                //Pick it up.
+                ((Player)pieces[x1, y1]).GetInventory().AddItem((IItem)pieces[x2, y2]);
+            }
+        }
+
+        //Move the piece to the space.
         pieces[x2, y2] = pieces[x1, y1];
         pieces[x2, y2].GetVisual().transform.position = BoardGenerator.ConvertBoardSpaceToWorldSpace(x2, y2);
+
+        
     }
 
     /// <summary>
