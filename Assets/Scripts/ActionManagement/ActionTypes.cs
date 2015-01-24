@@ -5,7 +5,8 @@ public enum EActionType
     Move,
     Strong,
     Wide,
-    Lunge
+    Lunge,
+    Item
 }
 
 public enum EReActionType
@@ -14,7 +15,8 @@ public enum EReActionType
     Move,
     Block,
     Bash,
-    Spot
+    Spot,
+    Item
 }
 
 public enum EActionDirection
@@ -58,6 +60,7 @@ public interface IReaction
 {
     EReActionType GetReactionType();
     EActionDirection GetDirection();
+    void PreAction(ReActionStatus reaction, ActionStatus status);
 }
 
 public class NoneReaction : IReaction
@@ -70,5 +73,10 @@ public class NoneReaction : IReaction
     public EActionDirection GetDirection()
     {
         return EActionDirection.None;
+    }
+
+    public void PreAction(ReActionStatus reaction, ActionStatus status)
+    {
+        return;
     }
 }

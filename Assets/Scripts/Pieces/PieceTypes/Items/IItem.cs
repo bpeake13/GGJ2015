@@ -6,5 +6,5 @@ public interface IItem : IPiece{
     /// <summary>
     /// Call this function when a player uses this item.
     /// </summary>
-    void Activate(Player owner);
+    void Activate(ReActionStatus reaction, ActionStatus status);
 }
