@@ -7,24 +7,31 @@ using System.Collections;
 /// </summary>
 public class PlayerTurnSkippedState : GameState
 {
-    public PlayerTurnSkippedState(PlayerController player)
+    public PlayerTurnSkippedState(PlayerController player, ActionStatus action)
     {
         this.player = player;
+        action.ActionType = EActionType.None;
     }
 
     public override void Enter()
     {
-        
+        player.HasAction = true;
     }
 
     public override void Update()
     {
-        throw new System.InvalidProgramException();
+        
     }
 
     public override void Exit()
     {
-        throw new System.InvalidProgramException();
+        
+    }
+
+    public override void Signal(int arg)
+    {
+        PlayerController next = GameplayStatistics.Instance.GetNextPlayer(player);
+        SwitchState(new PlayerActionStartState(next));
     }
 
     private PlayerController player;

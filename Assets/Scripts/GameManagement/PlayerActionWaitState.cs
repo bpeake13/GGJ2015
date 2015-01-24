@@ -3,9 +3,10 @@ using System.Collections;
 
 public class PlayerActionWaitState : GameState
 {
-    public PlayerActionWaitState(PlayerController player)
+    public PlayerActionWaitState(PlayerController player, ActionStatus action)
     {
         this.player = player;
+        this.action = action;
     }
 
     public override void Enter()
@@ -14,11 +15,12 @@ public class PlayerActionWaitState : GameState
 
     public override void Update()
     {
-        bool wasAction = player.TakeAction();
+        bool wasAction = player.TakeAction(action);
 
         if(wasAction)
         {
-
+            PlayerReactionStartState next = new PlayerReactionStartState(action);
+            SwitchState(next);
         }
     }
 
@@ -27,4 +29,6 @@ public class PlayerActionWaitState : GameState
     }
 
     private PlayerController player;
+
+    private ActionStatus action;
 }

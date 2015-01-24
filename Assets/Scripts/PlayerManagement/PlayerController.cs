@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
     public bool HasAction
     {
         get { return !bSkipAction; }
+        set { bSkipAction = !value; }
     }
 
     /// <summary>
@@ -63,6 +64,7 @@ public class PlayerController : MonoBehaviour
     public bool HasReAction
     {
         get { return !bSkipReAction; }
+        set { bSkipAction = !value; }
     }
 
     /// <summary>
@@ -97,8 +99,9 @@ public class PlayerController : MonoBehaviour
     /// Called every frame that the player can take an action
     /// </summary>
     /// <returns>True if the player has taken there action, false otherwise</returns>
-    public virtual bool TakeAction()
+    public virtual bool TakeAction(ActionStatus action)
     {
+        action.ActionType = EActionType.None;
         return true;
     }
 
@@ -106,9 +109,9 @@ public class PlayerController : MonoBehaviour
     /// Called every frame the player can take a reaction.
     /// </summary>
     /// <returns>True when the player has finished the reaction.</returns>
-    public virtual bool TakeReAction()
+    public virtual bool TakeReAction(ReActionStatus action)
     {
-
+        action.ReactionType = EReActionType.None;
         return true;
     }
 
