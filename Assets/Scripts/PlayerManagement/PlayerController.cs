@@ -67,6 +67,17 @@ public class PlayerController : MonoBehaviour
         set { playerPiece.SetHasReaction(!value); }
     }
 
+    public int Health
+    {
+        get { return health; }
+    }
+
+    public int MaxHealth
+    {
+        get { return maxHealth; }
+        set { maxHealth = value; }
+    }
+
     /// <summary>
     /// Spawns the player object for this controller
     /// </summary>
@@ -84,7 +95,10 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public virtual void OnRegistered()
     {
-
+        button0Name = GetButtonLongName("Button0");
+        button1Name = GetButtonLongName("Button1");
+        button2Name = GetButtonLongName("Button2");
+        button3Name = GetButtonLongName("Button3");
     }
 
     /// <summary>
@@ -101,7 +115,23 @@ public class PlayerController : MonoBehaviour
     /// <returns>True if the player has taken there action, false otherwise</returns>
     public virtual bool TakeAction(ActionStatus action)
     {
-        action.ActionType = new NoneAction();
+        if(Input.GetButtonDown(button0Name))
+        {
+
+        }
+        else if(Input.GetButtonDown(button1Name))
+        {
+
+        }
+        else if(Input.GetButtonDown(button2Name))
+        {
+
+        }
+        else if(Input.GetButtonDown(button3Name))
+        {
+
+        }
+
         return true;
     }
 
@@ -111,7 +141,23 @@ public class PlayerController : MonoBehaviour
     /// <returns>True when the player has finished the reaction.</returns>
     public virtual bool TakeReAction(ReActionStatus action)
     {
-        action.ReactionType = new NoneReaction();
+        if (Input.GetButtonDown(button0Name))
+        {
+
+        }
+        else if (Input.GetButtonDown(button1Name))
+        {
+
+        }
+        else if (Input.GetButtonDown(button2Name))
+        {
+
+        }
+        else if (Input.GetButtonDown(button3Name))
+        {
+
+        }
+
         return true;
     }
 
@@ -136,6 +182,18 @@ public class PlayerController : MonoBehaviour
 
     private int index = -1;
 
+
     //Hold a reference to the player piece
     Player playerPiece;
+
+    private bool bSkipAction;
+    private bool bSkipReAction;
+
+    private string button0Name;
+    private string button1Name;
+    private string button2Name;
+    private string button3Name;
+
+    private int health;
+    private int maxHealth;
 }
