@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
         set
         {
             GameplayStatistics statistics = GameplayStatistics.Instance;
-            if (!statistics)
+            if (statistics == null)
                 return;
 
             statistics.UnregisterPlayer(index);
@@ -74,8 +74,7 @@ public class PlayerController : MonoBehaviour
         GameObject gameController = GameObject.Find("GameController");
         PieceStructure pieces = gameController.GetComponent<GameController>().GetPieceStructure();
 
-        int numPlayers = 2;
-        BoardGenerator.SpawnPlayer(pieces, numPlayers);
+        BoardGenerator.SpawnPlayer(pieces, GameplayStatistics.Instance.PlayerCount);
     }
 
     /// <summary>

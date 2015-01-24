@@ -5,7 +5,7 @@ using System.Collections.Generic;
 /// <summary>
 /// General manager class for the game.
 /// </summary>
-public class GameplayStatistics : MonoBehaviour
+public class GameplayStatistics: MonoBehaviour
 {
     /// <summary>
     /// Gets the instance of GameplayStatistics

@@ -73,6 +73,7 @@ public static class BoardGenerator {
     public static void SpawnPlayer(PieceStructure pieces, int numPlayers)
     {
         //Spawn the player based on its spawn position
+        Debug.Log(numPlayers);
         Vector2 position = playerSpawnLocations[numPlayers][spawnedPlayerIndex];
         pieces.CreatePiece((int)position.x, (int)position.y, PieceType.player);
         spawnedPlayerIndex++;//Now that we spawned a new player, increase the index.
