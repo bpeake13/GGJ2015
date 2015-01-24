@@ -15,6 +15,11 @@ public class GameplayStatistics : MonoBehaviour
         get { return instance; }
     }
 
+    public int PlayerCount
+    {
+        get { return playerTable.Count; }
+    }
+
     /// <summary>
     /// Registers a player with the game
     /// </summary>
@@ -84,6 +89,14 @@ public class GameplayStatistics : MonoBehaviour
         }
 
         return playerTable.Values.GetEnumerator().Current;
+    }
+
+    public IEnumerator<PlayerController> IteratePlayers()
+    {
+        foreach (KeyValuePair<int, PlayerController> playerEntry in playerTable)
+        {
+            yield return playerEntry.Value;
+        }
     }
 
     /// <summary>
