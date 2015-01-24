@@ -24,3 +24,37 @@ public enum EActionDirection
     Left,
     Right
 }
+
+public interface IAction
+{
+    EActionType GetActionType();
+
+    void ReSolve(IReaction reaction);
+}
+
+public class NoneAction : IAction
+{
+
+    public EActionType GetActionType()
+    {
+        return EActionType.None;
+    }
+
+    public void ReSolve(IReaction reaction)
+    {
+        
+    }
+}
+
+public interface IReaction
+{
+    EReActionType GetReactionType();
+}
+
+public class NoneReaction : IReaction
+{
+    public EReActionType GetReactionType()
+    {
+        return EReActionType.None;
+    }
+}

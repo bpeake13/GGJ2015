@@ -10,15 +10,54 @@ public class PlayerReactionStartState : GameState
 
     public override void Enter()
     {
+        GameplayStatistics gs = GameplayStatistics.Instance;
+
         Time.timeScale = 0.2f;//slow down time
+        timePassed = 0f;
+
+        foreach (PlayerController player in gs.IteratePlayers())
+        {
+            if (player == action.OwnerPlayer)
+                continue;
+
+            action.AddReaction(new ReActionStatus(player));
+        }
     }
 
     public override void Update()
     {
+        bool waiting = false;
+
         GameplayStatistics gs = GameplayStatistics.Instance;
         foreach(PlayerController player in gs.IteratePlayers())
         {
-            //player.TakeReAction();
+            if (player == action.OwnerPlayer)
+                continue;
+
+            if (!player.HasReAction)
+                return;
+
+            ReActionStatus reaction = action.GetReaction(player);
+            if (reaction.ReactionType.GetReactionType() != EReActionType.None)
+                continue;
+
+            bool reacted = player.TakeReAction(reaction);
+            if (!reacted)
+                waiting = true;
+        }
+
+        if(!waiting)
+        {
+
+            return;
+        }
+
+        timePassed += Time.unscaledDeltaTime;//run timer out of the time scale effect
+
+        if(timePassed >= gs.MaxReactionTime)
+        {
+
+            return;
         }
     }
 
@@ -28,4 +67,6 @@ public class PlayerReactionStartState : GameState
     }
 
     private ActionStatus action;
+
+    private float timePassed;
 }

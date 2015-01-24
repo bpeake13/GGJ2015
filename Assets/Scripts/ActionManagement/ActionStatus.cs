@@ -18,7 +18,7 @@ public class ActionStatus
         get { return ownerPlayer; }
     }
 
-    public EActionType ActionType
+    public IAction ActionType
     {
         get { return actionType; }
         set { actionType = value; }
@@ -32,6 +32,8 @@ public class ActionStatus
 
     public ActionStatus(PlayerController ownerPlayer)
     {
+        this.reactionTable = new Dictionary<PlayerController,ReActionStatus>();
+
         this.ownerPlayer = ownerPlayer;
         this.ownerPlayerIndex = ownerPlayer.Index;
     }
@@ -39,6 +41,26 @@ public class ActionStatus
     public void AddReaction(ReActionStatus reaction)
     {
         this.allReactions.Add(reaction);
+        this.reactionTable.Add(reaction.OwnerPlayer, reaction);
+    }
+
+    public ReActionStatus GetReaction(PlayerController player)
+    {
+        if(reactionTable == null)
+        {
+            reactionTable = new Dictionary<PlayerController, ReActionStatus>();
+            GameplayStatistics gs = GameplayStatistics.Instance;
+
+            foreach(PlayerController p in gs.IteratePlayers())
+            {
+                ReActionStatus foundReaction = allReactions.Find(x => x.OwnerPlayer == p);
+                reactionTable.Add(p, foundReaction);
+            }
+        }
+
+        ReActionStatus reaction = null;
+        reactionTable.TryGetValue(player, out reaction);
+        return reaction;
     }
 
     public ReActionStatus[] GetAllReactions()
@@ -54,8 +76,10 @@ public class ActionStatus
     [SerializeField]
     private List<ReActionStatus> allReactions;
 
+    private Dictionary<PlayerController, ReActionStatus> reactionTable;
+
     [SerializeField]
-    private EActionType actionType;
+    private IAction actionType;
 
     [SerializeField]
     private EActionDirection direction;
@@ -82,7 +106,7 @@ public class ReActionStatus
         set { offsetTime = value; }
     }
 
-    public EReActionType ReactionType
+    public IReaction ReactionType
     {
         get { return reactionType; }
         set { reactionType = value; }
@@ -109,7 +133,7 @@ public class ReActionStatus
     private float offsetTime;
 
     [SerializeField]
-    private EReActionType reactionType;
+    private IReaction reactionType;
 
     [SerializeField]
     private EActionDirection direction;
