@@ -1,0 +1,93 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class WideAction : AbsAction, IAction {
+
+    //Statistics
+    const int DAMAGE = 1;
+
+
+    public WideAction(EActionDirection direction)
+        : base(direction)
+    {
+    }
+
+	public EActionType GetActionType()
+    {
+        return EActionType.Wide;
+    }
+
+    public void ReSolve(ReActionStatus reaction, ActionStatus status)
+    {
+        Player attacker = status.OwnerPlayer.GetPlayerPiece();
+        Player enemy = reaction.OwnerPlayer.GetPlayerPiece();
+
+        //Start by allowing the enemy to move
+        EActionDirection enemyDirection = reaction.Direction;
+        EnemyMoveReaction(enemy.GetPosition(), GetTargetPosition(enemy.GetPosition(), enemyDirection));
+
+        //Perform calculations to assess the action.
+        Vector2 adjacentAttackPosition = GetTargetPosition(attacker.GetPosition(), direction);
+        Vector2[] hitSpaces = GetWideTargetPositions(attacker.GetPosition(), direction);    //These are all of the spaces hit by the attack
+        bool enemyInFront = (adjacentAttackPosition == enemy.GetPosition());  //The enemy hit by center of the wide attack
+        EReActionType enemyReaction = reaction.ReactionType.GetReactionType();
+
+        //If enemy is in the attack range, do damage. The only way to protect is to block.
+        foreach(Vector2 space in hitSpaces)
+        {
+            if(enemy.GetPosition() == space)
+            {
+                if(enemyReaction != EReActionType.Block)
+                {
+                    enemy.Damage(DAMAGE);
+                }
+            }
+        }
+        //If the reaction was a shield bash, push the players away from each other, but only if the enemy is adjacent
+        if (enemyInFront && enemyReaction == EReActionType.Bash)
+        {
+            BashMovement(reaction, status);
+        }
+    }
+
+    /// <summary>
+    /// Given a position of the attacker and a direction, calculate all of the spaces that will be affects by the attack.
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="direction"></param>
+    /// <returns></returns>
+    private Vector2[] GetWideTargetPositions(Vector2 position, EActionDirection direction)
+    {
+        Vector2[] hitSpaces = new Vector2[3];
+
+        //Based on the direction enum, calculate the target position
+        switch (direction)
+        {
+            case EActionDirection.Up:
+                hitSpaces[0] = position + new Vector2(-1, 1);
+                hitSpaces[1] = position + new Vector2(0, 1);
+                hitSpaces[2] = position + new Vector2(1, 1);
+                break;
+            case EActionDirection.Right:
+                hitSpaces[0] = position + new Vector2(1, -1);
+                hitSpaces[1] = position + new Vector2(1, 0);
+                hitSpaces[2] = position + new Vector2(1, 1);
+                break;
+            case EActionDirection.Down:
+                hitSpaces[0] = position + new Vector2(-1, -1);
+                hitSpaces[1] = position + new Vector2(0, -1);
+                hitSpaces[2] = position + new Vector2(1, -1);
+                break;
+            case EActionDirection.Left:
+                hitSpaces[0] = position + new Vector2(-1, -1);
+                hitSpaces[1] = position + new Vector2(-1, 0);
+                hitSpaces[2] = position + new Vector2(-1, 1);
+                break;
+            default:
+                return null;
+        }
+
+        //Return the array of affected spaces
+        return hitSpaces;
+    }
+}

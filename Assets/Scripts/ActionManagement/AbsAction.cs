@@ -4,6 +4,23 @@ using System.Collections;
 public abstract class AbsAction {
 
 
+    //Keep track of the direction of this attack
+    protected EActionDirection direction;
+
+    public AbsAction(EActionDirection direction)
+    {
+        this.direction = direction;
+    }
+
+    /// <summary>
+    /// Getter for the direction
+    /// </summary>
+    /// <returns></returns>
+    public EActionDirection GetDirection()
+    {
+        return direction;
+    }
+
     /// <summary>
     /// Based on my movement direction, get the position I would like to end up.
     /// </summary>
@@ -21,7 +38,7 @@ public abstract class AbsAction {
                 offset = new Vector2(1, 0);
                 break;
             case EActionDirection.Down:
-                offset = new Vector2(0, -11);
+                offset = new Vector2(0, -1);
                 break;
             case EActionDirection.Left:
                 offset = new Vector2(-1, 0);
@@ -33,6 +50,29 @@ public abstract class AbsAction {
 
         //Calculate the spot we want to move to
         return position + offset;
+    }
+
+    /// <summary>
+    /// Given a position and direction, return the spot opposite of the specified direction
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="directionToReverse"></param>
+    /// <returns></returns>
+    protected Vector2 GetTargetPositionOppositeDirection(Vector2 position, EActionDirection directionToReverse)
+    {
+        switch (direction)
+        {
+            case EActionDirection.Up:
+                return GetTargetPosition(position, EActionDirection.Down);
+            case EActionDirection.Right:
+                return GetTargetPosition(position, EActionDirection.Left);
+            case EActionDirection.Down:
+                return GetTargetPosition(position, EActionDirection.Up);
+            case EActionDirection.Left:
+                return GetTargetPosition(position, EActionDirection.Right);
+            default:
+                return Vector2.zero;
+        }
     }
 
     /// <summary>
@@ -53,5 +93,33 @@ public abstract class AbsAction {
         }
         //If the space isn't valid anymore, move this player back to their old position.
         return enemyPosition;
+    }
+
+    /// <summary>
+    /// If the reaction is to shield bash and the reaction was a success, call this function to handle the movement.
+    /// </summary>
+    /// <param name="reaction"></param>
+    /// <param name="status"></param>
+    protected void BashMovement(ReActionStatus reaction, ActionStatus status)
+    {
+        Player attacker = status.OwnerPlayer.GetPlayerPiece();
+        Player enemy = reaction.OwnerPlayer.GetPlayerPiece();
+
+        //Move the enemy in the direction the attacker hit.
+        //Push the enemy back a space.
+        Vector2 pushBackSpaceEnemy = GetTargetPosition(enemy.GetPosition(), direction);
+        if (GameController.Instance.GetPieceStructure().isSpaceMovable((int)pushBackSpaceEnemy.x, (int)pushBackSpaceEnemy.y))//Only push them back if there is no wall there.
+        {
+            GameController.Instance.GetPieceStructure().MovePiece((int)enemy.GetPosition().x, (int)enemy.GetPosition().y,
+                                                                (int)pushBackSpaceEnemy.x, (int)pushBackSpaceEnemy.y);
+        }
+
+        //Push the attacker back a space.
+        Vector2 pushBackSpaceAttacker = GetTargetPositionOppositeDirection(attacker.GetPosition(), direction);
+        if (GameController.Instance.GetPieceStructure().isSpaceMovable((int)pushBackSpaceAttacker.x, (int)pushBackSpaceAttacker.y))//Only push them back if there is no wall there.
+        {
+            GameController.Instance.GetPieceStructure().MovePiece((int)attacker.GetPosition().x, (int)attacker.GetPosition().y,
+                                                                (int)pushBackSpaceAttacker.x, (int)pushBackSpaceAttacker.y);
+        }
     }
 }

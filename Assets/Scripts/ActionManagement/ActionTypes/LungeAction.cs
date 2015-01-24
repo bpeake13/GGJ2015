@@ -4,24 +4,15 @@ using System.Collections;
 public class LungeAction : AbsAction, IAction {
 
     //Statistics
-    const int DAMAGE = 1;
+    const int DAMAGE = 2;
 
-    //Keep track of the direction of this attack
-    EActionDirection direction;
-
-    public LungeAction(EActionDirection direction)
+    public LungeAction(EActionDirection direction):base(direction)
     {
-        this.direction = direction;
     }
 
 	public EActionType GetActionType()
     {
         return EActionType.Lunge;
-    }
-
-    public EActionDirection GetDirection()
-    {
-        return direction;
     }
 
     public void ReSolve(ReActionStatus reaction, ActionStatus status)
@@ -46,6 +37,18 @@ public class LungeAction : AbsAction, IAction {
             GameController.Instance.GetPieceStructure().SwapPiecePositions((int)attacker.GetPosition().x, (int)attacker.GetPosition().y,
                                                                     (int)targetPosition.x, (int)targetPosition.y);
         }
+        //If the enemy is in the way of the attacker's movement and the attack hits, push them back a space.
+        else if (enemyInFront && enemyReaction == EReActionType.Spot)
+        {
+            //Push the enemy back a space.
+            Vector2 pushBackSpace = GetTargetPosition(enemy.GetPosition(), direction);
+            if (GameController.Instance.GetPieceStructure().isSpaceMovable((int)pushBackSpace.x, (int)pushBackSpace.y))//Only push them back if there is no wall there.
+            {
+                GameController.Instance.GetPieceStructure().MovePiece((int)enemy.GetPosition().x, (int)enemy.GetPosition().y,
+                                                                    (int)pushBackSpace.x, (int)pushBackSpace.y);
+            }
+            
+        }
         //If no one is in the way, move forward.
         else if(!enemyInFront)
         {
@@ -62,6 +65,12 @@ public class LungeAction : AbsAction, IAction {
         if (enemyAtAttackDistance && (enemyReaction != EReActionType.Spot))
         {
             enemy.SetHasAction(false);
+
+            //If the reaction was a shiled bash, push the players away from each other
+            if(enemyReaction == EReActionType.Bash)
+            {
+                BashMovement(reaction, status);
+            }
         }
         //Otherwise, if the attacker misses in any way, the attacker loses a reaction.
         else if((enemyAtAttackDistance && enemyReaction == EReActionType.Spot) || 
