@@ -76,6 +76,7 @@ public class PieceStructure {
 
         //Move the piece to the space.
         pieces[x2, y2] = pieces[x1, y1];
+        pieces[x1, y1] = null;
         pieces[x2, y2].SetPosition(new Vector2(x2, y2));
         pieces[x2, y2].GetVisual().transform.position = BoardGenerator.ConvertBoardSpaceToWorldSpace(x2, y2);
 
@@ -104,8 +105,8 @@ public class PieceStructure {
     /// <returns></returns>
     public bool isSpaceOnBoard(int x, int y)
     {
-        return x < boardWidth && x > 0 &&
-                y < boardHeight && y > boardHeight;
+        return x < boardWidth && x >= 0 &&
+                y < boardHeight && y >= 0;
     }
 
     /// <summary>
@@ -125,9 +126,9 @@ public class PieceStructure {
     /// <returns></returns>
     public bool isSpaceMovable(int x, int y)
     {
-        return (isSpaceOnBoard(x, y) && 
+        return isSpaceOnBoard(x, y) && 
                 (pieces[x, y] == null || 
-                    (pieces[x, y].GetPieceType() != PieceType.player && pieces[x, y].GetPieceType() != PieceType.wall)));
+                    (pieces[x, y].GetPieceType() != PieceType.player && pieces[x, y].GetPieceType() != PieceType.wall));
     }
 
     /// <summary>
