@@ -34,6 +34,7 @@ public class MoveAction : AbsAction, IAction
             //Swap positions
             GameController.Instance.GetPieceStructure().SwapPiecePositions((int)attacker.GetPosition().x, (int)attacker.GetPosition().y,
                                                                     (int)targetPosition.x, (int)targetPosition.y);
+            SoundManager.Instance.PlaySound(SoundEffectType.dodge);
         }
         //If nothing else is blocking the attacker, move him.
         else
@@ -43,6 +44,7 @@ public class MoveAction : AbsAction, IAction
                 //Move the player
                 GameController.Instance.GetPieceStructure().MovePiece((int)attacker.GetPosition().x, (int)attacker.GetPosition().y,
                                                                         (int)targetPosition.x, (int)targetPosition.y);
+                SoundManager.Instance.PlaySound(SoundEffectType.dodge);
             }
         }
     }

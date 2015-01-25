@@ -176,7 +176,10 @@ public class PieceStructure {
     {
         foreach (Vector2 tile in affected)
         {
-            tiles[(int)tile.x, (int)tile.y].renderer.material.color = color;
+            if (isSpaceOnBoard((int)tile.x, (int)tile.y))
+            {
+                tiles[(int)tile.x, (int)tile.y].renderer.material.color = color;
+            }
         }
     }
 

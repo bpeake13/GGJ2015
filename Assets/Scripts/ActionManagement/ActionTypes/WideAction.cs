@@ -39,6 +39,7 @@ public class WideAction : AbsAction, IAction {
                 if(enemyReaction != EReActionType.Block)
                 {
                     enemy.Damage(DAMAGE);
+                    SoundManager.Instance.PlaySound(SoundEffectType.damage);
                 }
             }
         }
@@ -46,6 +47,10 @@ public class WideAction : AbsAction, IAction {
         if (enemyInFront && enemyReaction == EReActionType.Bash)
         {
             BashMovement(reaction, status);
+        }
+        else if (enemyInFront && enemyReaction == EReActionType.Block)
+        {
+            SoundManager.Instance.PlaySound(SoundEffectType.block);
         }
     }
 

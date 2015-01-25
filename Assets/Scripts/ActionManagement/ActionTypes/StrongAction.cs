@@ -33,11 +33,20 @@ public class StrongAction : AbsAction, IAction {
         if (enemyInFront && enemyReaction != EReActionType.Spot && enemyReaction != EReActionType.Block && enemyReaction != EReActionType.Bash)
         {
             enemy.Damage(DAMAGE);
+            SoundManager.Instance.PlaySound(SoundEffectType.strong);
         }
         //If the reaction was a shiled bash, push the players away from each other
         else if (enemyInFront && enemyReaction == EReActionType.Bash)
         {
             BashMovement(reaction, status);
+        }
+        else if (enemyInFront && enemyReaction == EReActionType.Block)
+        {
+            SoundManager.Instance.PlaySound(SoundEffectType.block);
+        }
+        else if (enemyInFront && enemyReaction == EReActionType.Spot)
+        {
+            SoundManager.Instance.PlaySound(SoundEffectType.dodge);
         }
         
     }

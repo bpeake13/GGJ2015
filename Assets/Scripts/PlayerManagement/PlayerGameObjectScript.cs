@@ -30,10 +30,5 @@ public class PlayerGameObjectScript : MonoBehaviour {
             transform.position = Vector3.Lerp(startPos, targetPosition, i);
             yield return null;
         }
-        /*while(transform.position != targetPosition)
-        {
-            transform.position = Vector3.Lerp(transform.position, targetPosition, slideSpeed*Time.deltaTime);
-            yield return null;
-        }*/
     }
 }

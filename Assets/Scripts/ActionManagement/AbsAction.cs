@@ -142,5 +142,7 @@ public abstract class AbsAction {
             GameController.Instance.GetPieceStructure().MovePiece((int)attacker.GetPosition().x, (int)attacker.GetPosition().y,
                                                                 (int)pushBackSpaceAttacker.x, (int)pushBackSpaceAttacker.y);
         }
+
+        SoundManager.Instance.PlaySound(SoundEffectType.block);
     }
 }

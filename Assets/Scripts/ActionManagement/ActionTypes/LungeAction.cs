@@ -35,6 +35,7 @@ public class LungeAction : AbsAction, IAction {
             //Swap positions
             GameController.Instance.GetPieceStructure().SwapPiecePositions((int)attacker.GetPosition().x, (int)attacker.GetPosition().y,
                                                                     (int)targetPosition.x, (int)targetPosition.y);
+            SoundManager.Instance.PlaySound(SoundEffectType.dodge);
         }
         //If the enemy is in the way of the attacker's movement and the attack hits, push them back a space.
         else if (enemyInFront && enemyReaction != EReActionType.Spot)
@@ -61,11 +62,13 @@ public class LungeAction : AbsAction, IAction {
         if ((enemyAtAttackDistance || enemyInFront) && enemyReaction != EReActionType.Bash && enemyReaction != EReActionType.Spot && enemyReaction != EReActionType.Block)
         {
             enemy.Damage(DAMAGE);
+            SoundManager.Instance.PlaySound(SoundEffectType.damage);
         }
         //Handle stunning - If the attack connects, the enemy loses their next action
         if ((enemyAtAttackDistance || enemyInFront) && (enemyReaction != EReActionType.Spot))
         {
             enemy.SetHasAction(false);
+            SoundManager.Instance.PlaySound(SoundEffectType.block);
 
             //If the reaction was a shield bash, push the players away from each other
             if(enemyReaction == EReActionType.Bash)
@@ -78,6 +81,7 @@ public class LungeAction : AbsAction, IAction {
                 !enemyAtAttackDistance)
         {
             attacker.SetHasReaction(false);
+            SoundManager.Instance.PlaySound(SoundEffectType.dodge);
         }
     }
 

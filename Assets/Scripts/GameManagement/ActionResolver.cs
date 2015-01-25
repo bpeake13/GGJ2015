@@ -21,6 +21,7 @@ public class ActionResolver : GameState
         //Check the attempted moves in the ActionStatus to see the resulting movement.
         foreach (ReActionStatus reaction in action.GetAllReactions())
         {
+            ResetPlayerState(reaction.OwnerPlayer);
             action.ActionType.ReSolve(reaction, action);
         }
 
