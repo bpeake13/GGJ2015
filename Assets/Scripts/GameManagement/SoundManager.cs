@@ -5,7 +5,10 @@ public enum SoundEffectType{
     damage,
     block,
     dodge,
-    strong
+    strong,
+    heal,
+    pickup,
+    invalid_move
 }
 
 public class SoundManager : MonoBehaviour {
@@ -26,6 +29,9 @@ public class SoundManager : MonoBehaviour {
     public AudioClip BlockSound;
     public AudioClip DodgeSound;
     public AudioClip StrongSound;
+    public AudioClip HealSound;
+    public AudioClip PickupSound;
+    public AudioClip InvalidSound;
 
 
     /// <summary>
@@ -44,6 +50,15 @@ public class SoundManager : MonoBehaviour {
                 break;
             case SoundEffectType.strong:
                 AudioSource.PlayClipAtPoint(StrongSound, Vector3.zero);
+                break;
+            case SoundEffectType.heal:
+                AudioSource.PlayClipAtPoint(HealSound, Vector3.zero);
+                break;
+            case SoundEffectType.pickup:
+                AudioSource.PlayClipAtPoint(PickupSound, Vector3.zero);
+                break;
+            case SoundEffectType.invalid_move:
+                AudioSource.PlayClipAtPoint(InvalidSound, Vector3.zero);
                 break;
             default:
                 AudioSource.PlayClipAtPoint(DodgeSound, Vector3.zero);
