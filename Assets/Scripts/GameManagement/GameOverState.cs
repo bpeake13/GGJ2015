@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using UnityEngine;
@@ -17,7 +18,24 @@ public class GameOverState : GameState
         if (GameController.Instance.IsPlayback)
             GameController.Instance.PlaybackReader.Close();
         else
-            GameController.Instance.RecordingWriter.Close();
+        {
+            string recordingFilePath = "recordings/rec_000.bin";
+            if (!Directory.Exists("recordings"))
+                Directory.CreateDirectory("recordings");
+
+            Stream src = GameController.Instance.RecordingWriter.BaseStream;
+            int length = (int)src.Length;
+            src.Seek(0, SeekOrigin.Begin);
+
+            Stream dst = File.Open(recordingFilePath, FileMode.OpenOrCreate);
+
+            byte[] data = new byte[length];
+            src.Read(data, 0, length);
+            dst.Write(data, 0, length);
+
+            dst.Close();
+            src.Close();
+        }
         WinnerDataStructure.Create(winnerIndex);
     }
 

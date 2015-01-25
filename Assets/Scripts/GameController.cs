@@ -62,11 +62,7 @@ public class GameController : MonoBehaviour {
 
         if(!isPlayback)
         {
-            string recordingFilePath = "recordings/rec_000.bin";
-            if (!Directory.Exists("recordings"))
-                Directory.CreateDirectory("recordings");
-
-            Stream recordingStream = File.Open(recordingFilePath, FileMode.OpenOrCreate);
+            Stream recordingStream = new MemoryStream();
             recordingWriter = new BinaryWriter(recordingStream);
 
             Random.seed = Random.Range(int.MinValue, int.MaxValue);

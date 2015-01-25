@@ -13,7 +13,7 @@ public class MainMenuScript : MonoBehaviour
 
     public void StartReplay()
     {
-        if (!File.Exists("rec_000.bin"))
+        if (!File.Exists("recordings/rec_000.bin"))
             return;
 
         showOnLoad.alpha = 1;
