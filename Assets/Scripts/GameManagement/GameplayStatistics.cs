@@ -27,6 +27,22 @@ public class GameplayStatistics: MonoBehaviour
     }
 
     /// <summary>
+    /// Resets the maxTimer to the original value after missing an input or taking a hit.
+    /// </summary>
+    public void ResetMaxReactionTime()
+    {
+        maxReactionTime = startingReactionTime;
+    }
+
+    /// <summary>
+    /// After an action is performed successfully, decrememnt the max reaction time.
+    /// </summary>
+    public void DecrementMaxReactionTime()
+    {
+        maxReactionTime -= maxReactionTimeDecreaseAmount;
+    }
+
+    /// <summary>
     /// Registers a player with the game
     /// </summary>
     /// <param name="index">The index to register this player at.</param>
@@ -145,7 +161,9 @@ public class GameplayStatistics: MonoBehaviour
 
     private GameState state;
 
-    private float maxReactionTime = 1f;
+    private float maxReactionTime = 3f;
+    private float startingReactionTime = 3f;
+    private float maxReactionTimeDecreaseAmount = 0.1f;//Every time an action is performed successfully, decrease the max timer by this amount.
 
     private SortedDictionary<int, PlayerController> playerTable = new SortedDictionary<int, PlayerController>();
 

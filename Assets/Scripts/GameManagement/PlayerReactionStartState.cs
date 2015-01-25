@@ -48,6 +48,7 @@ public class PlayerReactionStartState : GameState
 
         if(!waiting)
         {
+            gs.DecrementMaxReactionTime();
             SwitchState(new ActionResolver(action));
             return;
         }
@@ -56,6 +57,7 @@ public class PlayerReactionStartState : GameState
 
         if(timePassed >= gs.MaxReactionTime)
         {
+            gs.ResetMaxReactionTime();
             SwitchState(new ActionResolver(action));
             return;
         }

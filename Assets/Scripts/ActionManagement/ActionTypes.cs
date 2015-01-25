@@ -1,4 +1,6 @@
-﻿
+﻿using UnityEngine;
+
+
 public enum EActionType
 {
     None,
@@ -35,6 +37,10 @@ public interface IAction
     EActionDirection GetDirection();
 
     void ReSolve(ReActionStatus reaction, ActionStatus status);
+
+    //Quaternion GetSpriteOrientation();
+
+    //Vector2 GetSpritePosition();
 }
 
 public class NoneAction : IAction
@@ -54,6 +60,10 @@ public class NoneAction : IAction
     {
         
     }
+
+    public Quaternion GetSpriteOrientation() { return Quaternion.identity; }
+
+    public Vector2 GetSpritePosition() { return Vector2.zero; }
 }
 
 public interface IReaction
