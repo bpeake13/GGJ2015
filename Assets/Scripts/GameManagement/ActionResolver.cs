@@ -16,6 +16,8 @@ public class ActionResolver : GameState
 
     public override void Update()
     {
+        GuiStack.Instance.Clear();
+
         //Check the attempted moves in the ActionStatus to see the resulting movement.
         foreach (ReActionStatus reaction in action.GetAllReactions())
         {
