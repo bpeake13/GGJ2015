@@ -20,6 +20,8 @@ public class PlayerActionStartState : GameState
         GameDisplay gd = GameDisplay.Instance;
         gd.ShowAction(player);
 
+        gd.SetPlayerTurn(player);
+
         SwitchState(new PlayerActionWaitState(action));
     }
 

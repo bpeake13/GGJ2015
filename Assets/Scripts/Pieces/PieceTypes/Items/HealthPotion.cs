@@ -21,6 +21,6 @@ public class HealthPotion : AbsPiece, IItem
 
     public Sprite GetDisplaySprite()
     {
-        return null;
+        return Resources.Load<Sprite>("Sprites/health_potion");
     }
 }

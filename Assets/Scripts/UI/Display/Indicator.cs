@@ -49,10 +49,9 @@ public class Indicator : MonoBehaviour
         Player piece = player.GetPlayerPiece();
         Vector3 playerPosition = piece.GetVisual().transform.position;
 
-        Vector2 screenPosition = RectTransformUtility.WorldToScreenPoint(Camera.main, playerPosition);
-
-        Vector2 canvasPosition = Vector2.zero;;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(transform.parent as RectTransform, screenPosition, Camera.main, out canvasPosition);
+        Vector2 canvasPosition = Camera.mainCamera.WorldToScreenPoint(playerPosition);
+        
+        
 
         RectTransform t = GetComponent<RectTransform>();
         t.anchoredPosition = canvasPosition;

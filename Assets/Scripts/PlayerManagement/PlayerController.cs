@@ -43,9 +43,9 @@ public class PlayerController : MonoBehaviour
                 return;
 
             statistics.UnregisterPlayer(index);
+            index = value;
             if(value >= 0)
                 statistics.RegisterPlayer(value, this);
-            index = value;
         }
     }
 
@@ -278,7 +278,7 @@ public class PlayerController : MonoBehaviour
             return EActionDirection.Down;
     }
 
-    private int index = -1;
+    private int index = 1;
 
 
     //Hold a reference to the player piece
