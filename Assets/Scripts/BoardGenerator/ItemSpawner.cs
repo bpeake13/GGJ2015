@@ -7,8 +7,8 @@ public class ItemSpawner {
     PieceStructure pieces;
 
     //Spawn Timer
-    int MIN_TURNS_UNTIL_SPAWN = 5;
-    int MAX_TURNS_UNTIL_SPAWN = 10;
+    int MIN_TURNS_UNTIL_SPAWN = 8;
+    int MAX_TURNS_UNTIL_SPAWN = 15;
     int turnsUntilSpawn;
 
     //Items to spawn
@@ -75,7 +75,7 @@ public class ItemSpawner {
                 {
                     x = Random.Range(0, pieces.GetBoardWidth());
                     y = Random.Range(0, pieces.GetBoardHeight());
-                } while (pieces.isSpaceEmpty(x, y));//Keep looping until we find a valid space to place the item.
+                } while (!pieces.isSpaceEmpty(x, y));//Keep looping until we find a valid space to place the item.
 
                 //Actually create the item.
                 pieces.CreatePiece(x, y, items[i]);

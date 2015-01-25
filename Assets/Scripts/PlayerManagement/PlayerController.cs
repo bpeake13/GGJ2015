@@ -137,12 +137,14 @@ public class PlayerController : MonoBehaviour
         }
         else if(Input.GetButtonDown(button2Name))
         {
+            Debug.Log("Wide");
             action.ActionType = new WideAction(direction);
             action.Direction = direction;
             return true;
         }
         else if(Input.GetButtonDown(button3Name))
         {
+            Debug.Log("Lunge");
             action.ActionType = new LungeAction(direction);
             action.Direction = direction;
             return true;
@@ -172,18 +174,31 @@ public class PlayerController : MonoBehaviour
         EActionDirection direction = GetAxisDirection();
         if (Input.GetButtonDown(button0Name))
         {
+            Debug.Log("Move Reaction");
             action.ReactionType = new MoveReaction(direction);
             action.Direction = direction;
             return true;
         }
         else if (Input.GetButtonDown(button1Name))
         {
+            Debug.Log("Bash Reaction");
+            action.ReactionType = new BashReaction(direction);
+            action.Direction = direction;
+            return true;
         }
         else if (Input.GetButtonDown(button2Name))
         {
+            Debug.Log("Block Reaction");
+            action.ReactionType = new BlockReaction(direction);
+            action.Direction = direction;
+            return true;
         }
         else if (Input.GetButtonDown(button3Name))
         {
+            Debug.Log("Dodge Reaction");
+            action.ReactionType = new DodgeReaction(direction);
+            action.Direction = direction;
+            return true;
         }
         else if (Input.GetButtonDown(button4Name))
         {

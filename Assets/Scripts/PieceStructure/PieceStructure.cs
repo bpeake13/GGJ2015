@@ -54,7 +54,9 @@ public class PieceStructure {
     /// <param name="y"></param>
     public void RemovePiece(int x, int y)
     {
+        GameObject.Destroy(pieces[x, y].GetVisual());
         pieces[x, y] = null;
+
     }
 
     /// <summary>
@@ -71,6 +73,7 @@ public class PieceStructure {
             {
                 //Pick it up.
                 ((Player)pieces[x1, y1]).GetInventory().AddItem((IItem)pieces[x2, y2]);
+                RemovePiece(x2, y2);
             }
         }
 
