@@ -94,7 +94,10 @@ public class GameplayStatistics: MonoBehaviour
                 return playerEntry.Value;
         }
 
-        return playerTable.Values.GetEnumerator().Current;
+        IEnumerator<PlayerController> pcEnumerator = playerTable.Values.GetEnumerator();
+        pcEnumerator.MoveNext();
+
+        return pcEnumerator.Current;
     }
 
     public IEnumerable<PlayerController> IteratePlayers()
