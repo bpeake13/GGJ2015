@@ -9,8 +9,14 @@ public class PieceObjectConverter : MonoBehaviour {
     public GameObject wallObject;
     public GameObject healthPotionObject;
 
+    public Sprite LungeSprite;
+    public Sprite WideSprite;
+    public Sprite MoveSprite;
+    public Sprite StrongSprite;
+
     //Dictionary to convert from piece type to object
     private Dictionary<PieceType, GameObject> pieceObjectDictionary;
+    private Dictionary<EActionType, Sprite> actionSpriteDictionary;
     private GameObject[] playerObjects = new GameObject[2];
     private int createdPlayers = 0;
 
@@ -25,6 +31,14 @@ public class PieceObjectConverter : MonoBehaviour {
             { PieceType.player,             player1Object},
             { PieceType.wall,               wallObject},
             { PieceType.health_potion,      healthPotionObject},
+        };
+
+        actionSpriteDictionary = new Dictionary<EActionType, Sprite>()
+        {
+            { EActionType.Lunge,            LungeSprite},
+            { EActionType.Move,             MoveSprite},
+            { EActionType.Wide,             WideSprite},
+            { EActionType.Strong,           StrongSprite},
         };
 
         //Set the player objects
@@ -44,6 +58,16 @@ public class PieceObjectConverter : MonoBehaviour {
             return GetPlayerObject();
         }
         return pieceObjectDictionary[type];
+    }
+
+    /// <summary>
+    /// Get the sprite to display for a certain action
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public Sprite GetSpriteByAction(EActionType type)
+    {
+        return actionSpriteDictionary[type];
     }
 
     /// <summary>

@@ -19,6 +19,12 @@ public class PlayerActionWaitState : GameState
 
         if(wasAction)
         {
+            //Draw the sprite for the action onto the screen.
+            Sprite sprite = GameController.Instance.gameObject.GetComponent<PieceObjectConverter>().GetSpriteByAction(action.ActionType.GetActionType());
+            int x = (int)player.GetPlayerPiece().GetPosition().x;
+            int y = (int)player.GetPlayerPiece().GetPosition().y;
+            GameController.Instance.gameObject.GetComponent<GuiStack>().DrawGrid(sprite, x, y);
+
             PlayerReactionStartState next = new PlayerReactionStartState(action);
             SwitchState(next);
         }
