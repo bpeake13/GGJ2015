@@ -56,6 +56,11 @@ public class LungeAction : AbsAction, IAction {
                 GameController.Instance.GetPieceStructure().MovePiece((int)attacker.GetPosition().x, (int)attacker.GetPosition().y,
                                                                     (int)targetPosition.x, (int)targetPosition.y);
             }
+            //If there is a wall in front of the player, play the invalid_move sound.
+            else
+            {
+                SoundManager.Instance.PlaySound(SoundEffectType.invalid_move);
+            }
         }
 
         //Now handle the damaging
