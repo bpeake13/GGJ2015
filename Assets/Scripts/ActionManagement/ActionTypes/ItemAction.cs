@@ -29,7 +29,7 @@ public class ItemAction : AbsAction, IAction
         IItem item = attacker.GetInventory().UseItemAtIndex(inventorySlot);
         if (item != null)
         {
-            item.Activate(reaction, status);
+            item.Activate(null, status);
         }
     }
 
