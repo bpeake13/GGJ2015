@@ -15,7 +15,8 @@ public class PlayerTurnSkippedState : GameState
 
     public override void Enter()
     {
-        player.HasAction = true;
+        player.SetHasAction(true);
+        Signal(0);
     }
 
     public override void Update()

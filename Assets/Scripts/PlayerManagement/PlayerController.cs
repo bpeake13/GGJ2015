@@ -52,20 +52,27 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Checks to see if this player has an action this turn.
     /// </summary>
-    public bool HasAction
+    public bool HasAction()
     {
-        get { return playerPiece.HasAction(); }
-        set { playerPiece.SetHasAction(!value); }
+        return playerPiece.HasAction();
     }
 
-    /// <summary>
-    /// Checks to see if this player has a reaction this turn
-    /// </summary>
-    public bool HasReAction
+    public void SetHasAction(bool hasAction)
     {
-        get { return playerPiece.HasReaction(); }
-        set { playerPiece.SetHasReaction(!value); }
+        playerPiece.SetHasAction(hasAction);
     }
+
+    public bool HasReAction()
+    {
+        return playerPiece.HasReaction();
+    }
+
+    public void SetHasReAction(bool hasReaction)
+    {
+        playerPiece.SetHasReaction(hasReaction);
+    }
+
+
 
     public int Health
     {

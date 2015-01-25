@@ -11,7 +11,7 @@ public class PlayerActionStartState : GameState
 
     public override void Enter()
     {
-        if(!player.HasAction)
+        if(!player.HasAction())
         {
             SwitchState(new PlayerTurnSkippedState(action));
             return;

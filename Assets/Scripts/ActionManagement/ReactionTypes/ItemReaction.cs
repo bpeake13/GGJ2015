@@ -21,6 +21,10 @@ public class ItemReaction : AbsAction, IReaction {
         Player reactor = reaction.OwnerPlayer.GetPlayerPiece();
 
         //Use my item
-        reactor.GetInventory().UseItemAtIndex(inventoryIndex).Activate(reaction, status);
+        IItem item = reactor.GetInventory().UseItemAtIndex(inventoryIndex);
+        if (item != null)
+        {
+            item.Activate(reaction, status);
+        }
     }
 }

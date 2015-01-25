@@ -24,7 +24,11 @@ public class ItemAction : AbsAction, IAction
         //Call the reaction PreAction
         reaction.ReactionType.PreAction(reaction, status);
 
-        //Pass the responsibility of handling items off to the item class
-        attacker.GetInventory().UseItemAtIndex(inventorySlot).Activate(reaction, status);
+        //Use my item
+        IItem item = attacker.GetInventory().UseItemAtIndex(inventorySlot);
+        if (item != null)
+        {
+            item.Activate(reaction, status);
+        }
     }
 }

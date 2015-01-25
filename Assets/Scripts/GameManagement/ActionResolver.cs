@@ -11,7 +11,7 @@ public class ActionResolver : GameState
 
     public override void Enter()
     {
-        action.OwnerPlayer.HasReAction = true;
+        ResetPlayerState(action.OwnerPlayer);
     }
 
     public override void Update()
@@ -31,6 +31,15 @@ public class ActionResolver : GameState
     {
         //Since this is the last state, call the item spawner to signify that a turn has passed.
         GameController.Instance.GetItemSpawner().TurnPassed();
+    }
+
+    /// <summary>
+    /// Reset the state variables for the specified player
+    /// </summary>
+    /// <param name="player"></param>
+    private void ResetPlayerState(PlayerController player)
+    {
+        player.SetHasReAction(true);
     }
 
     private ActionStatus action;

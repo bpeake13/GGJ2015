@@ -37,7 +37,7 @@ public class LungeAction : AbsAction, IAction {
                                                                     (int)targetPosition.x, (int)targetPosition.y);
         }
         //If the enemy is in the way of the attacker's movement and the attack hits, push them back a space.
-        else if (enemyInFront && enemyReaction == EReActionType.Spot)
+        else if (enemyInFront && enemyReaction != EReActionType.Spot)
         {
             //Push the enemy back a space.
             Vector2 pushBackSpace = GetTargetPosition(enemy.GetPosition(), direction);
@@ -46,7 +46,16 @@ public class LungeAction : AbsAction, IAction {
                 GameController.Instance.GetPieceStructure().MovePiece((int)enemy.GetPosition().x, (int)enemy.GetPosition().y,
                                                                     (int)pushBackSpace.x, (int)pushBackSpace.y);
             }
-            
+
+            //If the reaction was a shield bash, push the players away from each other
+            if (enemyReaction == EReActionType.Bash)
+            {
+                BashMovement(reaction, status);
+            }
+
+            enemy.Damage(DAMAGE);
+            enemy.SetHasAction(false);
+            return;
         }
         //If no one is in the way, move forward.
         else if(!enemyInFront)
@@ -68,7 +77,7 @@ public class LungeAction : AbsAction, IAction {
         {
             enemy.SetHasAction(false);
 
-            //If the reaction was a shiled bash, push the players away from each other
+            //If the reaction was a shield bash, push the players away from each other
             if(enemyReaction == EReActionType.Bash)
             {
                 BashMovement(reaction, status);

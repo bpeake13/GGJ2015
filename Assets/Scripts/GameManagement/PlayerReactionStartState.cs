@@ -34,7 +34,7 @@ public class PlayerReactionStartState : GameState
             if (player == action.OwnerPlayer)
                 continue;
 
-            if (!player.HasReAction)
+            if (!player.HasReAction())
                 continue;
 
             ReActionStatus reaction = action.GetReaction(player);
