@@ -29,8 +29,6 @@ public class PieceStructure {
 
         //Initialize the array
         pieces = new IPiece[boardWidth, boardHeight];
-
-        this.seed = Random.seed;
     }
 
     /// <summary>

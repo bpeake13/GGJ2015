@@ -69,6 +69,7 @@ public class GameController : MonoBehaviour {
             Stream recordingStream = File.Open(recordingFilePath, FileMode.OpenOrCreate);
             recordingWriter = new BinaryWriter(recordingStream);
 
+            Random.seed = Random.Range(int.MinValue, int.MaxValue);
             recordingWriter.Write(Random.seed);
         }
 

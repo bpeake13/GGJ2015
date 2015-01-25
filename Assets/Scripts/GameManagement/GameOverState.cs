@@ -19,12 +19,13 @@ public class GameOverState : GameState
         else
             GameController.Instance.RecordingWriter.Close();
         WinnerDataStructure.Create(winnerIndex);
-        Application.LoadLevel(2);
     }
 
     public override void Update()
     {
-        
+        timer -= Time.unscaledDeltaTime;
+        if (timer <= 0)
+            Application.LoadLevel(3);
     }
 
     public override void Exit()
@@ -33,4 +34,6 @@ public class GameOverState : GameState
     }
 
     private int winnerIndex;
+
+    private float timer = 2f;
 }
