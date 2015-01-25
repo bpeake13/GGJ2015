@@ -68,7 +68,7 @@ public class LungeAction : AbsAction, IAction {
         }
 
         //Now handle the damaging
-        if(enemyReaction != EReActionType.Bash && enemyReaction != EReActionType.Spot && enemyReaction != EReActionType.Block)
+        if (enemyAtAttackDistance && enemyReaction != EReActionType.Bash && enemyReaction != EReActionType.Spot && enemyReaction != EReActionType.Block)
         {
             enemy.Damage(DAMAGE);
         }
