@@ -99,6 +99,8 @@ public class PlayerController : MonoBehaviour
         button1Name = GetButtonLongName("Button1");
         button2Name = GetButtonLongName("Button2");
         button3Name = GetButtonLongName("Button3");
+        button4Name = GetButtonLongName("Button4");
+        button5Name = GetButtonLongName("Button5");
 
         horizontalAxis = GetButtonLongName("Horizontal");
         verticalAxis = GetButtonLongName("Vertical");
@@ -119,28 +121,43 @@ public class PlayerController : MonoBehaviour
     public virtual bool TakeAction(ActionStatus action)
     {
         EActionDirection direction = GetAxisDirection();
-
         if(Input.GetButtonDown(button0Name))
         {
+            Debug.Log("Move");
             action.ActionType = new MoveAction(direction);
             action.Direction = direction;
             return true;
         }
         else if(Input.GetButtonDown(button1Name))
         {
+            Debug.Log("Strong");
             action.ActionType = new StrongAction(direction);
             action.Direction = direction;
             return true;
         }
         else if(Input.GetButtonDown(button2Name))
         {
+            Debug.Log("Wide");
             action.ActionType = new WideAction(direction);
             action.Direction = direction;
             return true;
         }
         else if(Input.GetButtonDown(button3Name))
         {
+            Debug.Log("Lunge");
             action.ActionType = new LungeAction(direction);
+            action.Direction = direction;
+            return true;
+        }
+        else if (Input.GetButtonDown(button4Name))
+        {
+            action.ActionType = new ItemAction(direction, 1);
+            action.Direction = direction;
+            return true;
+        }
+        else if (Input.GetButtonDown(button4Name))
+        {
+            action.ActionType = new ItemAction(direction, 0);
             action.Direction = direction;
             return true;
         }
@@ -154,24 +171,49 @@ public class PlayerController : MonoBehaviour
     /// <returns>True when the player has finished the reaction.</returns>
     public virtual bool TakeReAction(ReActionStatus action)
     {
+        EActionDirection direction = GetAxisDirection();
         if (Input.GetButtonDown(button0Name))
         {
-
+            Debug.Log("Move Reaction");
+            action.ReactionType = new MoveReaction(direction);
+            action.Direction = direction;
+            return true;
         }
         else if (Input.GetButtonDown(button1Name))
         {
-
+            Debug.Log("Bash Reaction");
+            action.ReactionType = new BashReaction(direction);
+            action.Direction = direction;
+            return true;
         }
         else if (Input.GetButtonDown(button2Name))
         {
-
+            Debug.Log("Block Reaction");
+            action.ReactionType = new BlockReaction(direction);
+            action.Direction = direction;
+            return true;
         }
         else if (Input.GetButtonDown(button3Name))
         {
-
+            Debug.Log("Dodge Reaction");
+            action.ReactionType = new DodgeReaction(direction);
+            action.Direction = direction;
+            return true;
+        }
+        else if (Input.GetButtonDown(button4Name))
+        {
+            action.ReactionType = new ItemReaction(direction, 1);
+            action.Direction = direction;
+            return true;
+        }
+        else if (Input.GetButtonDown(button5Name))
+        {
+            action.ReactionType = new ItemReaction(direction, 0);
+            action.Direction = direction;
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     protected string GetButtonLongName(string buttonShortName)
@@ -196,8 +238,8 @@ public class PlayerController : MonoBehaviour
     private EActionDirection GetAxisDirection()
     {
         Vector2 axis = new Vector2();
-        axis.x = Input.GetAxisRaw(horizontalAxis);
-        axis.y = Input.GetAxisRaw(verticalAxis);
+        axis.x = Input.GetAxis(horizontalAxis);
+        axis.y = Input.GetAxis(verticalAxis);
 
         if (Mathf.Abs(axis.x) > Mathf.Abs(axis.y))
         {
@@ -244,6 +286,8 @@ public class PlayerController : MonoBehaviour
     private string button1Name;
     private string button2Name;
     private string button3Name;
+    private string button4Name;
+    private string button5Name;
 
     private int health;
     private int maxHealth;

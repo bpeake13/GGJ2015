@@ -35,7 +35,7 @@ public class PlayerReactionStartState : GameState
                 continue;
 
             if (!player.HasReAction)
-                return;
+                continue;
 
             ReActionStatus reaction = action.GetReaction(player);
             if (reaction.ReactionType.GetReactionType() != EReActionType.None)
@@ -48,7 +48,7 @@ public class PlayerReactionStartState : GameState
 
         if(!waiting)
         {
-
+            SwitchState(new ActionResolver(action));
             return;
         }
 
@@ -56,7 +56,7 @@ public class PlayerReactionStartState : GameState
 
         if(timePassed >= gs.MaxReactionTime)
         {
-
+            SwitchState(new ActionResolver(action));
             return;
         }
     }

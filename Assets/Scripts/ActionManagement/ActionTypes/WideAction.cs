@@ -22,9 +22,8 @@ public class WideAction : AbsAction, IAction {
         Player attacker = status.OwnerPlayer.GetPlayerPiece();
         Player enemy = reaction.OwnerPlayer.GetPlayerPiece();
 
-        //Start by allowing the enemy to move
-        EActionDirection enemyDirection = reaction.Direction;
-        EnemyMoveReaction(enemy.GetPosition(), GetTargetPosition(enemy.GetPosition(), enemyDirection));
+        //Call the reaction PreAction
+        reaction.ReactionType.PreAction(reaction, status);
 
         //Perform calculations to assess the action.
         Vector2 adjacentAttackPosition = GetTargetPosition(attacker.GetPosition(), direction);

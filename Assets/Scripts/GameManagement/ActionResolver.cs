@@ -4,9 +4,8 @@ using System.Collections;
 public class ActionResolver : GameState
 {
 
-    public ActionResolver(PlayerController player, ActionStatus action)
+    public ActionResolver(ActionStatus action)
     {
-        this.player = player;
         this.action = action;
     }
 
@@ -23,7 +22,7 @@ public class ActionResolver : GameState
         }
 
         //Go to the action state of the next player and let them have their turn.
-        PlayerActionStartState next = new PlayerActionStartState(GameplayStatistics.Instance.GetNextPlayer(player));
+        PlayerActionStartState next = new PlayerActionStartState(GameplayStatistics.Instance.GetNextPlayer(action.OwnerPlayer));
         SwitchState(next);
     }
 
@@ -32,8 +31,6 @@ public class ActionResolver : GameState
         //Since this is the last state, call the item spawner to signify that a turn has passed.
         GameController.Instance.GetItemSpawner().TurnPassed();
     }
-
-    private PlayerController player;
 
     private ActionStatus action;
 }

@@ -36,6 +36,10 @@ public class ActionStatus
 
         this.ownerPlayer = ownerPlayer;
         this.ownerPlayerIndex = ownerPlayer.Index;
+
+        //Initialize lists
+        allReactions = new List<ReActionStatus>();
+        reactionTable = new Dictionary<PlayerController, ReActionStatus>();
     }
 
     public void AddReaction(ReActionStatus reaction)
@@ -68,6 +72,11 @@ public class ActionStatus
         return allReactions.ToArray();
     }
 
+    public int GetItemSlot()
+    {
+        return itemSlot;
+    }
+
     private PlayerController ownerPlayer;
 
     [SerializeField]
@@ -84,7 +93,8 @@ public class ActionStatus
     [SerializeField]
     private EActionDirection direction;
 
-
+    [SerializeField]
+    private int itemSlot;
 }
 
 [System.Serializable]
@@ -122,6 +132,7 @@ public class ReActionStatus
     {
         this.ownerPlayer = ownerPlayer;
         this.ownerPlayerIndex = ownerPlayer.Index;
+        this.ReactionType = new NoneReaction();
     }
 
     private PlayerController ownerPlayer;
