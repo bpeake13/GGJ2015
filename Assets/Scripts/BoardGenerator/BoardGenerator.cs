@@ -14,7 +14,7 @@ public static class BoardGenerator {
     //The first index is the number of players, the second index is the 
     static Dictionary<int, Vector2[]> playerSpawnLocations = new Dictionary<int, Vector2[]>
     {
-        {2, new Vector2[]{new Vector2(0, 0), new Vector2(1, 1)}}
+        {2, new Vector2[]{new Vector2(4, 4), new Vector2(5, 5)}}
     };
     static int spawnedPlayerIndex = 0;
 
