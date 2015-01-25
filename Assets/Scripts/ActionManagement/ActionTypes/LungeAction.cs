@@ -51,8 +51,11 @@ public class LungeAction : AbsAction, IAction {
         //If no one is in the way, move forward.
         else if(!enemyInFront)
         {
-            GameController.Instance.GetPieceStructure().MovePiece((int)attacker.GetPosition().x, (int)attacker.GetPosition().y,
+            if (GameController.Instance.GetPieceStructure().isSpaceMovable((int)targetPosition.x, (int)targetPosition.y))
+            {
+                GameController.Instance.GetPieceStructure().MovePiece((int)attacker.GetPosition().x, (int)attacker.GetPosition().y,
                                                                     (int)targetPosition.x, (int)targetPosition.y);
+            }
         }
 
         //Now handle the damaging

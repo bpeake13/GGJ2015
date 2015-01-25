@@ -11,6 +11,7 @@ public class ActionResolver : GameState
 
     public override void Enter()
     {
+        action.OwnerPlayer.HasReAction = true;
     }
 
     public override void Update()
