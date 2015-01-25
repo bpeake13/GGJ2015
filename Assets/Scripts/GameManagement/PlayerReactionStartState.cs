@@ -21,7 +21,11 @@ public class PlayerReactionStartState : GameState
                 continue;
 
             action.AddReaction(new ReActionStatus(player));
+
+            GameDisplay.Instance.ShowReaction(player);
         }
+
+        GameDisplay.Instance.ShowTimer();
     }
 
     public override void Update()
@@ -46,6 +50,8 @@ public class PlayerReactionStartState : GameState
                 waiting = true;
         }
 
+        GameDisplay.Instance.SetTime(timePassed);
+
         if(!waiting)
         {
             gs.DecrementMaxReactionTime();
@@ -66,6 +72,12 @@ public class PlayerReactionStartState : GameState
     public override void Exit()
     {
         Time.timeScale = 1f;
+        GameDisplay.Instance.HideTimer();
+
+        foreach(PlayerController player in GameplayStatistics.Instance.IteratePlayers())
+        {
+            GameDisplay.Instance.HideIndicator(player);
+        }
     }
 
     private ActionStatus action;

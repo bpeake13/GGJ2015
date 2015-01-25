@@ -26,6 +26,11 @@ public class GameDisplay : MonoBehaviour
         }
     }
 
+    public void SetPlayerTurn(PlayerController player)
+    {
+        messageText.text = string.Format("P{0}\nTURN", player.Index + 1);
+    }
+
     public void HideIndicator(PlayerController player)
     {
         Indicator indicator = GetIndicator(player);
@@ -71,12 +76,15 @@ public class GameDisplay : MonoBehaviour
 
     public void SetTime(float time)
     {
-        string timeText = string.Format("{F1}s", time);
-
         GameplayStatistics gs = GameplayStatistics.Instance;
         float max = gs.MaxReactionTime;
 
-        float normalized = time / max;
+        float timeLeft = max - time;
+
+        timeText.text = string.Format("{0:0.0}s", timeLeft);
+        
+
+        float normalized = timeLeft / max;
         timeSlider.normalizedValue = normalized;
     }
 

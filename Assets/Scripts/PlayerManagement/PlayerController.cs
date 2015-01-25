@@ -43,9 +43,9 @@ public class PlayerController : MonoBehaviour
                 return;
 
             statistics.UnregisterPlayer(index);
+            index = value;
             if(value >= 0)
                 statistics.RegisterPlayer(value, this);
-            index = value;
         }
     }
 
@@ -226,7 +226,7 @@ public class PlayerController : MonoBehaviour
     protected string GetButtonLongName(string buttonShortName)
     {
         StringBuilder sb = new StringBuilder();
-        sb.Append("Joystick");
+        sb.Append("Joystick-");
         sb.Append(index);
         sb.Append(buttonShortName);
 

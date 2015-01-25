@@ -13,6 +13,7 @@ public class PieceObjectConverter : MonoBehaviour {
     public Sprite WideSprite;
     public Sprite MoveSprite;
     public Sprite StrongSprite;
+    public Sprite ItemSprite;
 
     //Dictionary to convert from piece type to object
     private Dictionary<PieceType, GameObject> pieceObjectDictionary;
@@ -39,6 +40,7 @@ public class PieceObjectConverter : MonoBehaviour {
             { EActionType.Move,             MoveSprite},
             { EActionType.Wide,             WideSprite},
             { EActionType.Strong,           StrongSprite},
+            { EActionType.Item,             ItemSprite}
         };
 
         //Set the player objects
