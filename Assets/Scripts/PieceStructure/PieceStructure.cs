@@ -35,6 +35,12 @@ public class PieceStructure {
     /// <param name="type"></param>
     public IPiece CreatePiece(int x, int y, PieceType type)
     {
+        //Remove any piece that might already be there
+        if(pieces[x, y] != null)
+        {
+            RemovePiece(x, y);
+        }
+
         //Create the visual for the piece
         GameObject pieceObject = GameObject.Instantiate(gameController.GetComponent<PieceObjectConverter>().GetObjectByType(type),
                                                         BoardGenerator.ConvertBoardSpaceToWorldSpace(x, y),

@@ -238,8 +238,8 @@ public class PlayerController : MonoBehaviour
     private EActionDirection GetAxisDirection()
     {
         Vector2 axis = new Vector2();
-        axis.x = Input.GetAxis(horizontalAxis);
-        axis.y = Input.GetAxis(verticalAxis);
+        axis.x = Input.GetAxisRaw(horizontalAxis);
+        axis.y = Input.GetAxisRaw(verticalAxis);
 
         if (Mathf.Abs(axis.x) > Mathf.Abs(axis.y))
         {
