@@ -46,16 +46,6 @@ public class LungeAction : AbsAction, IAction {
                 GameController.Instance.GetPieceStructure().MovePiece((int)enemy.GetPosition().x, (int)enemy.GetPosition().y,
                                                                     (int)pushBackSpace.x, (int)pushBackSpace.y);
             }
-
-            //If the reaction was a shield bash, push the players away from each other
-            if (enemyReaction == EReActionType.Bash)
-            {
-                BashMovement(reaction, status);
-            }
-
-            enemy.Damage(DAMAGE);
-            enemy.SetHasAction(false);
-            return;
         }
         //If no one is in the way, move forward.
         else if(!enemyInFront)
@@ -68,12 +58,12 @@ public class LungeAction : AbsAction, IAction {
         }
 
         //Now handle the damaging
-        if (enemyAtAttackDistance && enemyReaction != EReActionType.Bash && enemyReaction != EReActionType.Spot && enemyReaction != EReActionType.Block)
+        if ((enemyAtAttackDistance || enemyInFront) && enemyReaction != EReActionType.Bash && enemyReaction != EReActionType.Spot && enemyReaction != EReActionType.Block)
         {
             enemy.Damage(DAMAGE);
         }
         //Handle stunning - If the attack connects, the enemy loses their next action
-        if (enemyAtAttackDistance && (enemyReaction != EReActionType.Spot))
+        if ((enemyAtAttackDistance || enemyInFront) && (enemyReaction != EReActionType.Spot))
         {
             enemy.SetHasAction(false);
 

@@ -12,7 +12,7 @@ public class PlayerReactionStartState : GameState
     {
         GameplayStatistics gs = GameplayStatistics.Instance;
 
-        Time.timeScale = 0.2f;//slow down time
+        Time.timeScale = 1;//slow down time
         timePassed = 0f;
 
         foreach (PlayerController player in gs.IteratePlayers())
