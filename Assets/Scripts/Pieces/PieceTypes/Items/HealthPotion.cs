@@ -15,7 +15,15 @@ public class HealthPotion : AbsPiece, IItem
     /// </summary>
     public void Activate(ReActionStatus reaction, ActionStatus status)
     {
-        Player owner = status.OwnerPlayer.GetPlayerPiece();
+        Player owner;
+        if(reaction == null)
+        {
+            owner = status.OwnerPlayer.GetPlayerPiece();
+        }
+        else
+        {
+            owner = reaction.OwnerPlayer.GetPlayerPiece();
+        }
         owner.Heal(healAmount);
         SoundManager.Instance.PlaySound(SoundEffectType.heal);
 
