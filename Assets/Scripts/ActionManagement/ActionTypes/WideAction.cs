@@ -89,4 +89,16 @@ public class WideAction : AbsAction, IAction {
         //Return the array of affected spaces
         return hitSpaces;
     }
+
+    public Quaternion GetSpriteOrientation(ActionStatus status)
+    {
+        return GetRotationByDirection(direction);
+    }
+
+    public Vector2 GetSpritePosition(ActionStatus status)
+    {
+        Player attacker = status.OwnerPlayer.GetPlayerPiece();
+        Vector2 attackPosition = GetTargetPosition(attacker.GetPosition(), direction);
+        return attackPosition;
+    }
 }

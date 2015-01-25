@@ -41,4 +41,16 @@ public class StrongAction : AbsAction, IAction {
         }
         
     }
+
+    public Quaternion GetSpriteOrientation(ActionStatus status)
+    {
+        return Quaternion.identity;
+    }
+
+    public Vector2 GetSpritePosition(ActionStatus status)
+    {
+        Player attacker = status.OwnerPlayer.GetPlayerPiece();
+        Vector2 attackPosition = GetTargetPosition(attacker.GetPosition(), direction);
+        return attackPosition;
+    }
 }

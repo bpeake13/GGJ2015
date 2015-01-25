@@ -31,4 +31,14 @@ public class ItemAction : AbsAction, IAction
             item.Activate(reaction, status);
         }
     }
+
+    public Quaternion GetSpriteOrientation(ActionStatus status)
+    {
+        return Quaternion.identity;
+    }
+
+    public Vector2 GetSpritePosition(ActionStatus status)
+    {
+        return status.OwnerPlayer.GetPlayerPiece().GetPosition();
+    }
 }

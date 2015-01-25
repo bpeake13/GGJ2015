@@ -91,6 +91,16 @@ public class LungeAction : AbsAction, IAction {
         }
     }
 
+    public Quaternion GetSpriteOrientation(ActionStatus status)
+    {
+        return GetRotationByDirection(direction);
+    }
+
+    public Vector2 GetSpritePosition(ActionStatus status)
+    {
+        return status.OwnerPlayer.GetPlayerPiece().GetPosition();
+    }
+
     /// <summary>
     /// Determine if an enemy is adjacent to the player or not.
     /// </summary>

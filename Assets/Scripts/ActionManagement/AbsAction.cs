@@ -53,6 +53,27 @@ public abstract class AbsAction {
     }
 
     /// <summary>
+    /// Get the Quaternion rotation of the sprite to draw based on the direction of the action.
+    /// </summary>
+    /// <returns></returns>
+    protected Quaternion GetRotationByDirection(EActionDirection direction)
+    {
+        switch (direction)
+        {
+            case EActionDirection.Up:
+                return Quaternion.Euler(90, 270, 0);
+            case EActionDirection.Right:
+                return Quaternion.Euler(90, 0, 0);
+            case EActionDirection.Down:
+                return Quaternion.Euler(90, 90, 0);
+            case EActionDirection.Left:
+                return Quaternion.Euler(90, 180, 0);
+            default:
+                return Quaternion.identity;
+        }
+    }
+
+    /// <summary>
     /// Given a position and direction, return the spot opposite of the specified direction
     /// </summary>
     /// <param name="position"></param>

@@ -38,9 +38,9 @@ public interface IAction
 
     void ReSolve(ReActionStatus reaction, ActionStatus status);
 
-    //Quaternion GetSpriteOrientation();
+    Quaternion GetSpriteOrientation(ActionStatus status);
 
-    //Vector2 GetSpritePosition();
+    Vector2 GetSpritePosition(ActionStatus status);
 }
 
 public class NoneAction : IAction
@@ -61,9 +61,9 @@ public class NoneAction : IAction
         
     }
 
-    public Quaternion GetSpriteOrientation() { return Quaternion.identity; }
+    public Quaternion GetSpriteOrientation(ActionStatus status) { return Quaternion.identity; }
 
-    public Vector2 GetSpritePosition() { return Vector2.zero; }
+    public Vector2 GetSpritePosition(ActionStatus status) { return Vector2.zero; }
 }
 
 public interface IReaction
