@@ -41,6 +41,10 @@ public interface IAction
     Quaternion GetSpriteOrientation(ActionStatus status);
 
     Vector2 GetSpritePosition(ActionStatus status);
+
+    Vector2[] GetAffectedTiles(ActionStatus status);
+
+    Color GetActionColor();
 }
 
 public class NoneAction : IAction
@@ -64,6 +68,10 @@ public class NoneAction : IAction
     public Quaternion GetSpriteOrientation(ActionStatus status) { return Quaternion.identity; }
 
     public Vector2 GetSpritePosition(ActionStatus status) { return Vector2.zero; }
+
+    public Vector2[] GetAffectedTiles(ActionStatus status) { return new Vector2[] { }; }
+
+    public Color GetActionColor() { return Color.white; }
 }
 
 public interface IReaction

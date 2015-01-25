@@ -25,6 +25,7 @@ public class PlayerActionWaitState : GameState
             int x = (int)spritePosition.x;
             int y = (int)spritePosition.y;
             GameController.Instance.gameObject.GetComponent<GuiStack>().DrawGrid(sprite, x, y, action.ActionType.GetSpriteOrientation(action));
+            GameController.Instance.GetPieceStructure().ColorTiles(action.ActionType.GetAffectedTiles(action), action.ActionType.GetActionColor());
 
             PlayerReactionStartState next = new PlayerReactionStartState(action);
 

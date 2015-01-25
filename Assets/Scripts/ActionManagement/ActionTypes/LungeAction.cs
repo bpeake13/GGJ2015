@@ -110,4 +110,30 @@ public class LungeAction : AbsAction, IAction {
         //Return true if there is an enemy blocking the player.
         return targetPosition == enemy;
     }
+
+    /// <summary>
+    /// Get the tiles that are affected by this action and can be visually changed.
+    /// </summary>
+    /// <param name="status"></param>
+    /// <returns></returns>
+    public Vector2[] GetAffectedTiles(ActionStatus status)
+    {
+        Player attacker = status.OwnerPlayer.GetPlayerPiece();
+        Vector2 firstStep = GetTargetPosition(attacker.GetPosition(), direction);
+        Vector2 secondStep = GetTargetPosition(firstStep, direction);
+
+        return new Vector2[] {
+            firstStep,
+            secondStep
+        };
+    }
+
+    /// <summary>
+    /// Get the color that represents this action.
+    /// </summary>
+    /// <returns></returns>
+    public Color GetActionColor()
+    {
+        return Color.yellow;
+    }
 }

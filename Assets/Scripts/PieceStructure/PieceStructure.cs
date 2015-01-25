@@ -29,14 +29,6 @@ public class PieceStructure {
     }
 
     /// <summary>
-    /// Generate all of the tiles and keep track of the game objects.
-    /// </summary>
-    public void GenerateTiles()
-    {
-        tiles = BoardGenerator.Generate(this);
-    }
-
-    /// <summary>
     /// Create a new piece on the board at a specific space.
     /// </summary>
     /// <param name="x"></param>
@@ -165,5 +157,37 @@ public class PieceStructure {
     public int GetBoardHeight()
     {
         return boardHeight;
+    }
+
+    /// <summary>
+    /// Generate all of the tiles and keep track of the game objects.
+    /// </summary>
+    public void GenerateTiles()
+    {
+        tiles = BoardGenerator.Generate(this);
+    }
+
+    /// <summary>
+    /// Color all of the specified tiles a specified color.
+    /// </summary>
+    /// <param name="affected"></param>
+    /// <param name="color"></param>
+    public void ColorTiles(Vector2[] affected, Color color)
+    {
+        foreach (Vector2 tile in affected)
+        {
+            tiles[(int)tile.x, (int)tile.y].renderer.material.color = color;
+        }
+    }
+
+    /// <summary>
+    /// Reset the color of all tiles back to white.
+    /// </summary>
+    public void ResetTileColors()
+    {
+        foreach (GameObject tile in tiles)
+        {
+            tile.renderer.material.color = Color.white;
+        }
     }
 }

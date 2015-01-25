@@ -33,6 +33,9 @@ public class ActionResolver : GameState
     {
         //Since this is the last state, call the item spawner to signify that a turn has passed.
         GameController.Instance.GetItemSpawner().TurnPassed();
+
+        //Reset all the tiles to their original colors.
+        GameController.Instance.GetPieceStructure().ResetTileColors();
     }
 
     /// <summary>

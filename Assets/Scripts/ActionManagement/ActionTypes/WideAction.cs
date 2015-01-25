@@ -101,4 +101,24 @@ public class WideAction : AbsAction, IAction {
         Vector2 attackPosition = GetTargetPosition(attacker.GetPosition(), direction);
         return attackPosition;
     }
+
+    /// <summary>
+    /// Get the tiles that are affected by this action and can be visually changed.
+    /// </summary>
+    /// <param name="status"></param>
+    /// <returns></returns>
+    public Vector2[] GetAffectedTiles(ActionStatus status)
+    {
+        Player attacker = status.OwnerPlayer.GetPlayerPiece();
+        return GetWideTargetPositions(attacker.GetPosition(), direction);
+    }
+
+    /// <summary>
+    /// Get the color that represents this action.
+    /// </summary>
+    /// <returns></returns>
+    public Color GetActionColor()
+    {
+        return Color.cyan;
+    }
 }

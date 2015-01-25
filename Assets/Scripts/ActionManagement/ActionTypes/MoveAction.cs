@@ -56,4 +56,28 @@ public class MoveAction : AbsAction, IAction
     {
         return status.OwnerPlayer.GetPlayerPiece().GetPosition();
     }
+
+    /// <summary>
+    /// Get the tiles that are affected by this action and can be visually changed.
+    /// </summary>
+    /// <param name="status"></param>
+    /// <returns></returns>
+    public Vector2[] GetAffectedTiles(ActionStatus status)
+    {
+        Player attacker = status.OwnerPlayer.GetPlayerPiece();
+        Vector2 firstStep = GetTargetPosition(attacker.GetPosition(), direction);
+
+        return new Vector2[] {
+            firstStep
+        };
+    }
+
+    /// <summary>
+    /// Get the color that represents this action.
+    /// </summary>
+    /// <returns></returns>
+    public Color GetActionColor()
+    {
+        return Color.blue;
+    }
 }
