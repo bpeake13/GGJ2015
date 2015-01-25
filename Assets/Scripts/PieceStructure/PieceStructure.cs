@@ -86,6 +86,7 @@ public class PieceStructure {
                 //Pick it up.
                 ((Player)pieces[x1, y1]).GetInventory().AddItem((IItem)pieces[x2, y2]);
                 RemovePiece(x2, y2);
+                SoundManager.Instance.PlaySound(SoundEffectType.pickup);
             }
         }
 

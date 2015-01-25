@@ -47,6 +47,11 @@ public class MoveAction : AbsAction, IAction
                                                                         (int)targetPosition.x, (int)targetPosition.y);
                 SoundManager.Instance.PlaySound(SoundEffectType.dodge);
             }
+            //If the move was invalid, play a sound
+            else
+            {
+                SoundManager.Instance.PlaySound(SoundEffectType.invalid_move);
+            }
         }
     }
 
