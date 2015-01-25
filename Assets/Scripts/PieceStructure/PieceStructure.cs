@@ -13,6 +13,9 @@ public class PieceStructure {
     //Board size
     int boardWidth, boardHeight;
 
+    //The seed used at the time of creation
+    int seed;
+
     /// <summary>
     /// Constructor
     /// </summary>
@@ -26,6 +29,8 @@ public class PieceStructure {
 
         //Initialize the array
         pieces = new IPiece[boardWidth, boardHeight];
+
+        this.seed = Random.seed;
     }
 
     /// <summary>
@@ -192,5 +197,10 @@ public class PieceStructure {
         {
             tile.renderer.material.color = Color.white;
         }
+	}
+	
+    public int GetSeed()
+    {
+        return seed;
     }
 }

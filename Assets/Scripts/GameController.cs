@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 
 public class GameController : MonoBehaviour {
 
@@ -22,11 +23,54 @@ public class GameController : MonoBehaviour {
     //Create a structure to spawn items
     ItemSpawner itemSpawner;
 
+    [SerializeField]
+    bool isPlayback;
+
+    BinaryWriter recordingWriter;
+
+    BinaryReader playbackReader;
+
+    public void GameFinish()
+    {
+        if (isPlayback)
+            playbackReader.Close();
+        else
+            recordingWriter.Close();
+    }
+
 	// Use this for initialization
 	void Start () {
 
         //Set the singleton
         instance = this;
+
+        if(isPlayback)
+        {
+            string recordingFilePath = "recordings/rec_000.bin";
+            if(File.Exists(recordingFilePath))
+            {
+                Stream playbackStream = File.OpenRead(recordingFilePath);
+                playbackReader = new BinaryReader(playbackStream);
+
+                Random.seed = playbackReader.ReadInt32();
+            }
+            else
+            {
+                isPlayback = false;
+            }
+        }
+
+        if(!isPlayback)
+        {
+            string recordingFilePath = "recordings/rec_000.bin";
+            if (!Directory.Exists("recordings"))
+                Directory.CreateDirectory("recordings");
+
+            Stream recordingStream = File.Open(recordingFilePath, FileMode.OpenOrCreate);
+            recordingWriter = new BinaryWriter(recordingStream);
+
+            recordingWriter.Write(Random.seed);
+        }
 
         //Set up the piece structure/board
         pieces = new PieceStructure(gameObject, BOARD_WIDTH, BOARD_HEIGHT);
@@ -67,5 +111,20 @@ public class GameController : MonoBehaviour {
     public ItemSpawner GetItemSpawner()
     {
         return itemSpawner;
+    }
+
+    public bool IsPlayback
+    {
+        get { return isPlayback; }
+    }
+
+    public BinaryReader PlaybackReader
+    {
+        get { return playbackReader; }
+    }
+
+    public BinaryWriter RecordingWriter
+    {
+        get { return recordingWriter; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 
 public class LungeAction : AbsAction, IAction {
 
@@ -129,5 +130,15 @@ public class LungeAction : AbsAction, IAction {
     public Color GetActionColor()
     {
         return Color.yellow;
+	}
+	
+    public void Serialize(BinaryWriter writer)
+    {
+        writer.Write((char)direction);
+    }
+
+    public void Deserialize(BinaryReader reader)
+    {
+        this.direction = (EActionDirection)reader.ReadChar();
     }
 }

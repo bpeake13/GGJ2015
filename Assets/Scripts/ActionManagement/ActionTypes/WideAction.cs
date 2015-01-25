@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 
 public class WideAction : AbsAction, IAction {
 
@@ -125,5 +126,15 @@ public class WideAction : AbsAction, IAction {
     public Color GetActionColor()
     {
         return Color.cyan;
+	}
+	
+    public void Serialize(BinaryWriter writer)
+    {
+        writer.Write((char)direction);
+    }
+
+    public void Deserialize(BinaryReader reader)
+    {
+        this.direction = (EActionDirection)reader.ReadChar();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 /// <summary>
 /// General manager class for the game.
@@ -140,7 +141,10 @@ public class GameplayStatistics: MonoBehaviour
 
     void Start()
     {
-        state = new GameSpawnPlayerState();
+        if (GameController.Instance.IsPlayback)
+            state = new PlaybackSetupState();
+        else
+            state = new GameSpawnPlayerState();
         state.Enter();
     }
 

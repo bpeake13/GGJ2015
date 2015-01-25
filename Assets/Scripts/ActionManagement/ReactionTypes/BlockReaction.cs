@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 
 public class BlockReaction : AbsAction, IReaction
 {
@@ -16,5 +17,15 @@ public class BlockReaction : AbsAction, IReaction
 
     public void PreAction(ReActionStatus reaction, ActionStatus status)
     {
+    }
+
+    public void Serialize(BinaryWriter writer)
+    {
+        writer.Write((char)direction);
+    }
+
+    public void Deserialize(BinaryReader reader)
+    {
+        this.direction = (EActionDirection)reader.ReadChar();
     }
 }
