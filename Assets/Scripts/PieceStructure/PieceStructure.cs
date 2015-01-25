@@ -88,7 +88,7 @@ public class PieceStructure {
         pieces[x2, y2] = pieces[x1, y1];
         pieces[x1, y1] = null;
         pieces[x2, y2].SetPosition(new Vector2(x2, y2));
-        pieces[x2, y2].GetVisual().transform.position = BoardGenerator.ConvertBoardSpaceToWorldSpace(x2, y2);
+        pieces[x2, y2].GetVisual().SendMessage("SlideToTargetPosition", BoardGenerator.ConvertBoardSpaceToWorldSpace(x2, y2) );
 
         
     }
