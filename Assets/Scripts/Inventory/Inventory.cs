@@ -40,7 +40,7 @@ public class Inventory {
     public IItem UseItemAtIndex(int index)
     {
         //If we don't have the specified item, return nothing
-        if(index > items.Count)
+        if(index >= items.Count)
         {
             return null;
         }
@@ -48,5 +48,13 @@ public class Inventory {
         IItem item = items[index];
         items.RemoveAt(index);
         return item;
+    }
+
+    public IItem GetItem(int index)
+    {
+        if (index >= items.Count)
+            return null;
+
+        return items[index];
     }
 }

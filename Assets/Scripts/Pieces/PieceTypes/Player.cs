@@ -5,7 +5,7 @@ public class Player : AbsPiece {
 
     //State variables
     const int MAX_HEALTH = 5;
-    int currentHealth;
+    int currentHealth = MAX_HEALTH;
     Inventory inventory;
     bool hasAction = true;
     bool hasReaction = true;

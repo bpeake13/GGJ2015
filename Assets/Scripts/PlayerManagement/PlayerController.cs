@@ -297,5 +297,5 @@ public class PlayerController : MonoBehaviour
     private string button5Name;
 
     private int health;
-    private int maxHealth;
+    private int maxHealth = 5;
 }

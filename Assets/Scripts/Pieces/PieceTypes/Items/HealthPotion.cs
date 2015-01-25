@@ -18,4 +18,9 @@ public class HealthPotion : AbsPiece, IItem
         Player owner = status.OwnerPlayer.GetPlayerPiece();
         owner.Heal(healAmount);
     }
+
+    public Sprite GetDisplaySprite()
+    {
+        return null;
+    }
 }
