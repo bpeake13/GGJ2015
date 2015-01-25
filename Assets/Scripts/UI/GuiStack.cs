@@ -60,10 +60,12 @@ public class GuiStack : MonoBehaviour
         Draw(sprite, position, Quaternion.identity, Vector3.one);
     }
 
-    public void DrawGrid(Sprite sprite, int gridX, int gridY, Quaternion rotation)
+    public void DrawGrid(Sprite sprite, int gridX, int gridY)
     {
         Vector3 loc = BoardGenerator.ConvertBoardSpaceToWorldSpace(gridX, gridY);
-        Draw(sprite, loc, rotation);
+        loc.z += 1.5f;
+        Quaternion rot = Quaternion.LookRotation(Vector3.up);
+        Draw(sprite, loc, rot);
     }
 
     [SerializeField]

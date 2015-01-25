@@ -16,6 +16,10 @@ public class PlayerActionStartState : GameState
             SwitchState(new PlayerTurnSkippedState(action));
             return;
         }
+
+        GameDisplay gd = GameDisplay.Instance;
+        gd.ShowAction(player);
+
         SwitchState(new PlayerActionWaitState(action));
     }
 

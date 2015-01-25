@@ -26,6 +26,10 @@ public class PlayerActionWaitState : GameState
             //GameController.Instance.gameObject.GetComponent<GuiStack>().DrawGrid(sprite, x, y);
 
             PlayerReactionStartState next = new PlayerReactionStartState(action);
+
+            GameDisplay gd = GameDisplay.Instance;
+            gd.HideIndicator(player);
+
             SwitchState(next);
         }
     }

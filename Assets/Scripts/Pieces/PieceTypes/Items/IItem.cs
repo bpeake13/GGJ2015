@@ -7,4 +7,6 @@ public interface IItem : IPiece{
     /// Call this function when a player uses this item.
     /// </summary>
     void Activate(ReActionStatus reaction, ActionStatus status);
+
+    Sprite GetDisplaySprite();
 }
