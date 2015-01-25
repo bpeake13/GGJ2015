@@ -226,7 +226,7 @@ public class PlayerController : MonoBehaviour
     protected string GetButtonLongName(string buttonShortName)
     {
         StringBuilder sb = new StringBuilder();
-        sb.Append("Joystick");
+        sb.Append("Joystick-");
         sb.Append(index);
         sb.Append(buttonShortName);
 
@@ -278,7 +278,7 @@ public class PlayerController : MonoBehaviour
             return EActionDirection.Down;
     }
 
-    private int index = 1;
+    private int index = -1;
 
 
     //Hold a reference to the player piece
