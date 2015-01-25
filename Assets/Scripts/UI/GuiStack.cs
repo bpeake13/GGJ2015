@@ -3,8 +3,15 @@ using System.Collections;
 
 public class GuiStack : MonoBehaviour 
 {
+    public static GuiStack Instance
+    {
+        get { return instance; }
+    }
+
     void Awake()
     {
+        instance = this;
+
         transform.position = Vector3.zero;
         transform.localScale = Vector3.one;
 
@@ -16,11 +23,6 @@ public class GuiStack : MonoBehaviour
             newSpriteObject.SetActive(false);
             sprites[i] = newSpriteObject.GetComponent<SpriteRenderer>();
         }
-    }
-
-    void Update()
-    {
-        Clear();
     }
 
     public void Clear()
@@ -69,4 +71,6 @@ public class GuiStack : MonoBehaviour
 
     private int spriteIndex = 0;
     private SpriteRenderer[] sprites;
+
+    private static GuiStack instance;
 }
