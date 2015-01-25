@@ -162,7 +162,7 @@ public class PlayerController : MonoBehaviour
             action.Direction = direction;
             return true;
         }
-        else if (Input.GetButtonDown(button4Name))
+        else if (Input.GetButtonDown(button5Name))
         {
             action.ActionType = new ItemAction(direction, 0);
             action.Direction = direction;

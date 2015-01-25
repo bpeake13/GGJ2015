@@ -15,6 +15,10 @@ public class Inventory {
     public Inventory()
     {
         items = new List<IItem>();
+        for(int i = 0; i < SIZE; i++)
+        {
+            items.Add(null);
+        }
     }
 
     /// <summary>
@@ -46,6 +50,9 @@ public class Inventory {
         }
 
         IItem item = items[index];
+        if (item == null)
+            return null;
+
         items.RemoveAt(index);
         return item;
     }
