@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 
 /// <summary>
 /// Spawns the players and starts the game.
@@ -12,6 +13,14 @@ public class GameSpawnPlayerState : GameState
         PlayerController p2 = PlayerController.CreatePlayer(1);
         p1.Spawn();
         p2.Spawn();
+
+        BinaryWriter writer = GameController.Instance.RecordingWriter;
+
+        writer.Write(GameplayStatistics.Instance.PlayerCount);
+        foreach(PlayerController player in GameplayStatistics.Instance.IteratePlayers())
+        {
+            writer.Write(player.Index);
+        }
 
         SwitchState(new PlayerActionStartState(p1));
     }

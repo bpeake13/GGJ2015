@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 
 public class ItemAction : AbsAction, IAction
 {
@@ -61,5 +62,17 @@ public class ItemAction : AbsAction, IAction
     public Color GetActionColor()
     {
         return Color.white;
+	}
+	
+    public void Serialize(BinaryWriter writer)
+    {
+        writer.Write(inventorySlot);
+        writer.Write((char)direction);
+    }
+
+    public void Deserialize(BinaryReader reader)
+    {
+        this.inventorySlot = reader.ReadInt32();
+        this.direction = (EActionDirection)reader.ReadChar();
     }
 }

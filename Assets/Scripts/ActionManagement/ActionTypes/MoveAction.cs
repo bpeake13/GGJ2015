@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 
 public class MoveAction : AbsAction, IAction
 {
@@ -86,5 +87,15 @@ public class MoveAction : AbsAction, IAction
     public Color GetActionColor()
     {
         return Color.blue;
+	}
+	
+    public void Serialize(BinaryWriter writer)
+    {
+        writer.Write((char)direction);
+    }
+
+    public void Deserialize(BinaryReader reader)
+    {
+        this.direction = (EActionDirection)reader.ReadChar();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 
 public class ActionResolver : GameState
 {
@@ -12,6 +13,9 @@ public class ActionResolver : GameState
     public override void Enter()
     {
         ResetPlayerState(action.OwnerPlayer);
+
+        BinaryWriter writer = GameController.Instance.RecordingWriter;
+        action.Serialize(writer);
     }
 
     public override void Update()
@@ -25,8 +29,23 @@ public class ActionResolver : GameState
             action.ActionType.ReSolve(reaction, action);
         }
 
+        int deadCount = 0;
+        int alivePlayer = -1;
+        foreach(PlayerController player in GameplayStatistics.Instance.IteratePlayers())
+        {
+            if (player.GetPlayerPiece().isDead())
+                deadCount++;
+            else
+                alivePlayer = player.Index;
+        }
+
         //Go to the action state of the next player and let them have their turn.
-        PlayerActionStartState next = new PlayerActionStartState(GameplayStatistics.Instance.GetNextPlayer(action.OwnerPlayer));
+        GameState next;
+        if (deadCount != GameplayStatistics.Instance.PlayerCount - 1)
+            next = new PlayerActionStartState(GameplayStatistics.Instance.GetNextPlayer(action.OwnerPlayer));
+        else
+            next = new GameOverState(alivePlayer);
+
         SwitchState(next);
     }
 

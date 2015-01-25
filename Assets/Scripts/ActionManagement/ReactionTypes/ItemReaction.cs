@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 
 public class ItemReaction : AbsAction, IReaction {
 
@@ -26,5 +27,17 @@ public class ItemReaction : AbsAction, IReaction {
         {
             item.Activate(reaction, status);
         }
+    }
+
+    public void Serialize(BinaryWriter writer)
+    {
+        writer.Write(inventoryIndex);
+        writer.Write((char)direction);
+    }
+
+    public void Deserialize(BinaryReader reader)
+    {
+        this.inventoryIndex = reader.ReadInt32();
+        this.direction = (EActionDirection)reader.ReadChar();
     }
 }

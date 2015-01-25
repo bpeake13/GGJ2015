@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using UnityEngine;
 
 
 public enum EActionType
@@ -45,6 +46,10 @@ public interface IAction
     Vector2[] GetAffectedTiles(ActionStatus status);
 
     Color GetActionColor();
+	
+    void Serialize(BinaryWriter writer);
+
+    void Deserialize(BinaryReader reader);
 }
 
 public class NoneAction : IAction
@@ -72,12 +77,18 @@ public class NoneAction : IAction
     public Vector2[] GetAffectedTiles(ActionStatus status) { return new Vector2[] { }; }
 
     public Color GetActionColor() { return Color.white; }
+
+    public void Serialize(BinaryWriter writer) { }
+
+    public void Deserialize(BinaryReader reader) { }
 }
 
 public interface IReaction
 {
     EReActionType GetReactionType();
     EActionDirection GetDirection();
+    void Serialize(BinaryWriter writer);
+    void Deserialize(BinaryReader reader);
     void PreAction(ReActionStatus reaction, ActionStatus status);
 }
 
@@ -96,5 +107,15 @@ public class NoneReaction : IReaction
     public void PreAction(ReActionStatus reaction, ActionStatus status)
     {
         return;
+    }
+
+    public void Serialize(BinaryWriter writer)
+    {
+
+    }
+
+    public void Deserialize(BinaryReader reader)
+    {
+
     }
 }

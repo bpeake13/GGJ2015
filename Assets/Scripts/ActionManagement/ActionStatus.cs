@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System;
+using System.Runtime.Serialization;
 
 /// <summary>
 /// Holds information about the current actions happening
@@ -77,6 +80,49 @@ public class ActionStatus
         return itemSlot;
     }
 
+    public void Serialize(BinaryWriter writer)
+    {
+        writer.Write(ownerPlayerIndex);
+        writer.Write((char)direction);
+        writer.Write(itemSlot);
+
+        writer.Write(actionType.GetType().FullName);
+        actionType.Serialize(writer);
+
+        int reactionCount = allReactions.Count;
+        writer.Write(reactionCount);
+        for(int i = 0; i < reactionCount; i++)
+        {
+            allReactions[i].Serialize(writer);
+        }
+    }
+
+    public void Deserialize(BinaryReader reader)
+    {
+        allReactions = new List<ReActionStatus>();
+        reactionTable = new Dictionary<PlayerController, ReActionStatus>();
+
+        this.ownerPlayerIndex = reader.ReadInt32();
+        ownerPlayer = GameplayStatistics.Instance.GetPlayer(ownerPlayerIndex);
+        this.direction = (EActionDirection)reader.ReadChar();
+        this.itemSlot = reader.ReadInt32();
+
+        System.Type aType = System.Type.GetType(reader.ReadString());
+        actionType = FormatterServices.GetUninitializedObject(aType) as IAction;
+
+        actionType.Deserialize(reader);
+
+        int reactionCount = reader.ReadInt32();
+        for(int i = 0; i < reactionCount; i++)
+        {
+            ReActionStatus reaction = FormatterServices.GetUninitializedObject(typeof(ReActionStatus)) as ReActionStatus;
+            reaction.Deserialize(reader);
+
+            allReactions.Add(reaction);
+            reactionTable.Add(reaction.OwnerPlayer, reaction);
+        }
+    }
+
     private PlayerController ownerPlayer;
 
     [SerializeField]
@@ -133,6 +179,31 @@ public class ReActionStatus
         this.ownerPlayer = ownerPlayer;
         this.ownerPlayerIndex = ownerPlayer.Index;
         this.ReactionType = new NoneReaction();
+    }
+
+    public void Serialize(BinaryWriter writer)
+    {
+        writer.Write(ownerPlayerIndex);
+        writer.Write(offsetTime);
+        writer.Write((char)direction);
+
+        writer.Write(reactionType.GetType().FullName);
+        reactionType.Serialize(writer);
+    }
+
+    public void Deserialize(BinaryReader reader)
+    {
+        this.ownerPlayerIndex = reader.ReadInt32();
+        ownerPlayer = GameplayStatistics.Instance.GetPlayer(ownerPlayerIndex);
+
+        this.offsetTime = reader.ReadSingle();
+
+        this.direction = (EActionDirection)reader.ReadChar();
+
+        System.Type rType = System.Type.GetType(reader.ReadString());
+        reactionType = FormatterServices.GetUninitializedObject(rType) as IReaction;
+
+        reactionType.Deserialize(reader);
     }
 
     private PlayerController ownerPlayer;
