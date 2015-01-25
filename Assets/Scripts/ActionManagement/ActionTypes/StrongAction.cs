@@ -4,7 +4,7 @@ using System.Collections;
 public class StrongAction : AbsAction, IAction {
 
     //Statistics
-    const int DAMAGE = 2;
+    const int DAMAGE = 3;
 
 
     public StrongAction(EActionDirection direction): base(direction)

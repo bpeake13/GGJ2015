@@ -112,6 +112,11 @@ public abstract class AbsAction {
                                                                     (int)targetPosition.x, (int)targetPosition.y);
             return targetPosition;
         }
+        //If the enemy runs into a wall, play the invalid sound for them.
+        else
+        {
+            SoundManager.Instance.PlaySound(SoundEffectType.invalid_move);
+        }
         //If the space isn't valid anymore, move this player back to their old position.
         return enemyPosition;
     }
