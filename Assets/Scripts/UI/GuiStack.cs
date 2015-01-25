@@ -37,6 +37,10 @@ public class GuiStack : MonoBehaviour
     {
         int index = spriteIndex;
         spriteIndex++;
+        if(spriteIndex > maxSpriteCount)
+        {
+            spriteIndex = 0;
+        }
 
         SpriteRenderer sr = sprites[index];
         sr.gameObject.SetActive(true);
