@@ -21,8 +21,9 @@ public static class BoardGenerator {
     /// <summary>
     /// Procedurally assign pieces in the piece structure.
     /// </summary>
-    public static void Generate(PieceStructure pieces)
+    public static GameObject[,] Generate(PieceStructure pieces)
     {
+        GameObject[,] tiles = new GameObject[pieces.GetBoardWidth(), pieces.GetBoardHeight()];
         //Create all of the tiles that make up the board
         GameObject parentBoard = new GameObject();
         parentBoard.transform.name = "Board";
@@ -30,17 +31,11 @@ public static class BoardGenerator {
         {
             for (int y = 0; y < pieces.GetBoardHeight(); y++)
             {
-                CreateTile(x, y, parentBoard.transform);
+                tiles[x, y] = CreateTile(x, y, parentBoard.transform);
             }
         }
 
-        //Use an algorithm to spawn pieces on the board.
-        SpawnWallsOnBoard(pieces);
-    }
-
-    public static void Reset()
-    {
-
+        return tiles;
     }
 
     /// <summary>
@@ -59,11 +54,12 @@ public static class BoardGenerator {
     /// </summary>
     /// <param name="x"></param>
     /// <param name="y"></param>
-    private static void CreateTile(int x, int y, Transform parentBoard)
+    private static GameObject CreateTile(int x, int y, Transform parentBoard)
     {
 
         GameObject newTile = GameObject.Instantiate(Resources.Load("Tile", typeof(GameObject)), ConvertBoardSpaceToWorldSpace(x, y), Quaternion.identity) as GameObject;
         newTile.transform.parent = parentBoard;
+        return newTile;
     }
 
     /// <summary>
@@ -81,7 +77,7 @@ public static class BoardGenerator {
     /// Place walls on the board procedurally.
     /// </summary>
     /// <param name="pieces"></param>
-    private static void SpawnWallsOnBoard(PieceStructure pieces)
+    public static void SpawnWallsOnBoard(PieceStructure pieces)
     {
         //Randomly place walls
         for (int x = 0; x < pieces.GetBoardWidth(); x++)

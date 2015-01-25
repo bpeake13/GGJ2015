@@ -8,6 +8,7 @@ public class PieceStructure {
 
     //Structure to hold the pieces.
     private IPiece[,] pieces;
+    private GameObject[,] tiles;
 
     //Board size
     int boardWidth, boardHeight;
@@ -25,6 +26,14 @@ public class PieceStructure {
 
         //Initialize the array
         pieces = new IPiece[boardWidth, boardHeight];
+    }
+
+    /// <summary>
+    /// Generate all of the tiles and keep track of the game objects.
+    /// </summary>
+    public void GenerateTiles()
+    {
+        tiles = BoardGenerator.Generate(this);
     }
 
     /// <summary>

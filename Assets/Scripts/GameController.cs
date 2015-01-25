@@ -32,7 +32,8 @@ public class GameController : MonoBehaviour {
         pieces = new PieceStructure(gameObject, BOARD_WIDTH, BOARD_HEIGHT);
 
         //Set up the Board Generator to build the playing field.
-        BoardGenerator.Generate(pieces);
+        pieces.GenerateTiles();
+        BoardGenerator.SpawnWallsOnBoard(pieces);
 
         //Initialize the item spawner
         itemSpawner = new ItemSpawner(pieces);
