@@ -18,6 +18,9 @@ public class HealthPotion : AbsPiece, IItem
         Player owner = status.OwnerPlayer.GetPlayerPiece();
         owner.Heal(healAmount);
         SoundManager.Instance.PlaySound(SoundEffectType.heal);
+
+        //Owner loses their reaction
+        owner.SetHasReaction(false);
     }
 
     public Sprite GetDisplaySprite()
