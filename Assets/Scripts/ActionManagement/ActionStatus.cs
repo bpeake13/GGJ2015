@@ -132,6 +132,7 @@ public class ReActionStatus
     {
         this.ownerPlayer = ownerPlayer;
         this.ownerPlayerIndex = ownerPlayer.Index;
+        this.ReactionType = new NoneReaction();
     }
 
     private PlayerController ownerPlayer;

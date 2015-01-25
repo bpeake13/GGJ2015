@@ -16,7 +16,6 @@ public class MoveReaction : AbsAction, IReaction
 
     public void PreAction(ReActionStatus reaction, ActionStatus status)
     {
-        Player attacker = status.OwnerPlayer.GetPlayerPiece();
         Player reactor = reaction.OwnerPlayer.GetPlayerPiece();
 
         //Start by allowing the enemy to move before the action

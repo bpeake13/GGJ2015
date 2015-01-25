@@ -18,7 +18,6 @@ public class ItemReaction : AbsAction, IReaction {
 
     public void PreAction(ReActionStatus reaction, ActionStatus status)
     {
-        Player attacker = status.OwnerPlayer.GetPlayerPiece();
         Player reactor = reaction.OwnerPlayer.GetPlayerPiece();
 
         //Use my item
